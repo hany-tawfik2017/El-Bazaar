@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "484661793367",
+    "firebase_url": "https://el-bazaar.firebaseio.com",
+    "project_id": "el-bazaar",
+    "storage_bucket": "el-bazaar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:484661793367:android:da74de21924d69b0",
+        "android_client_info": {
+          "package_name": "com.hany.el_bazaar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "484661793367-b2nq4v4i2peg6ecsbir0gpaon3errifv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hany.el_bazaar",
+            "certificate_hash": "766571dccfcbff3c1c0dd4640d8d4f870660e5dc"
+          }
+        },
+        {
+          "client_id": "484661793367-j3qkertc001g5u8j8annpch6eqbfbrfc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-6lZyyafQYLkdYjWvQA8H9Wcogh84o4k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "484661793367-j3qkertc001g5u8j8annpch6eqbfbrfc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
