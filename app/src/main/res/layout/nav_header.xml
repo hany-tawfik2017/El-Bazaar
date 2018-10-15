@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_header"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="@drawable/navigation_bg"
+    android:orientation="vertical"
+    android:paddingTop="20dp">
+
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="51dp"
+        android:layout_height="51dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="33dp"
+        android:src="@drawable/logo" />
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4.1dp"
+        android:textSize="17sp"
+        android:fontFamily="sans-serif-black"
+        android:textStyle="normal"
+        android:textColor="#ffffff"
+        android:lineSpacingExtra="-3sp"
+        android:text='@string/app_name'/>
+    <LinearLayout
+        android:layout_width="160dp"
+        android:layout_height="36dp"
+        android:layout_below="@id/name"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/nav_rectangle"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="#ffffff"
+            android:text="Login"
+            android:gravity="start|center_vertical"
+            android:padding="7dp"
+            android:layout_marginStart="17dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="#ffffff"
+            android:text="or"
+            android:gravity="start|center_vertical"
+            android:padding="4dp"
+            android:layout_marginStart="4dp"
+            />
+        <TextView
+            android:id="@+id/join"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="#ffffff"
+            android:text="Join"
+            android:gravity="start|center_vertical"
+            android:padding="7dp"
+            android:layout_marginEnd="16dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimaryDark" />
+</RelativeLayout>

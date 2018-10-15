@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group
+        android:id="@+id/one"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/home_icon"
+            android:title="Home"
+            app:actionViewClass="android.widget.ImageView"
+            />
+
+        <item
+            android:id="@+id/browse"
+            android:icon="@drawable/search_icon"
+            android:title="Browse"
+            app:actionViewClass="android.widget.ImageView"
+            />
+        <item
+            android:id="@+id/favorites"
+            android:icon="@drawable/fav_icon"
+            android:title="Favorites"
+            />
+
+
+
+
+    </group>
+    <group
+        android:id="@+id/two"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/settings"
+            android:title="Settings" />
+        <item
+            android:id="@+id/contact"
+            android:title="Contact"/>
+        <item
+            android:id="@+id/about"
+            android:title="About" />
+
+    </group>
+</menu>
