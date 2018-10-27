@@ -11,8 +11,7 @@
     tools:openDrawer="start">
 
     <android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -24,17 +23,31 @@
             <android.support.design.widget.AppBarLayout
                 android:id="@+id/abl_main"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/background"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
+                android:layout_height="130dp"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                >
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_scrollFlags="scroll|enterAlways"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    >
+                </android.support.v7.widget.Toolbar>
+                <com.arlib.floatingsearchview.FloatingSearchView
+                    android:id="@+id/floating_search_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimaryDark"
+                    app:floatingSearch_searchBarMarginLeft="9dp"
+                    app:floatingSearch_searchBarMarginTop="5dp"
+                    app:floatingSearch_searchBarMarginRight="9dp"
+                    app:floatingSearch_searchHint="Write what you are looking for"
+                    app:floatingSearch_suggestionsListAnimDuration="250"
+                    app:floatingSearch_showSearchKey="false"
+                    app:floatingSearch_leftActionMode="showSearch"
+                    app:floatingSearch_close_search_on_keyboard_dismiss="true"/>
 
 
             </android.support.design.widget.AppBarLayout>

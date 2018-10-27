@@ -6,13 +6,19 @@
     android:background="@drawable/background"
     tools:context="com.hany.el_bazaar.activities.SplashActivity">
 
+    <LinearLayout
+        android:id="@+id/logo_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
     <ImageView
         android:id="@+id/logo"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logo"
+        android:layout_gravity="center"/>
 
     <TextView
         android:id="@+id/text"
@@ -27,5 +33,6 @@
         android:textStyle="normal"
         tools:text="@string/app_name" />
 
+    </LinearLayout>
 
 </RelativeLayout>

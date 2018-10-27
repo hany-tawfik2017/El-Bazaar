@@ -10,6 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.ybq.android.spinkit.SpinKitView;
@@ -23,7 +24,7 @@ import com.hany.el_bazaar.R;
 public class SplashActivity extends AppCompatActivity {
 
     TextView appName;
-    ImageView appLogo;
+    LinearLayout logoLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +38,10 @@ public class SplashActivity extends AppCompatActivity {
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         appName = (TextView) findViewById(R.id.text);
-        appLogo = (ImageView) findViewById(R.id.logo);
+        logoLayout = (LinearLayout) findViewById(R.id.logo_layout);
         appName.setText("El-Bazaar");
         Animation pulse = AnimationUtils.loadAnimation(this,R.anim.pulse_animation);
-        appLogo.startAnimation(pulse);
+        logoLayout.startAnimation(pulse);
 
         new Handler().postDelayed(new Runnable() {
             @Override
