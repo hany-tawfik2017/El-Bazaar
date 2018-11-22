@@ -9,4 +9,6 @@
     <color name="black">#000000</color>
     <color name="sapphire">#184ca7</color>
     <color name="gold">#ffb300</color>
+    <color name="warm_grey">#9e9e9e</color>
+    <color name="greyish">#a8a8a8</color>
 </resources>

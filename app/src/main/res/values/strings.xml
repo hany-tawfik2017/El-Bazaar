@@ -27,4 +27,6 @@
     <string name="login_toolbar">Login</string>
     <string name="don_t_have_account">Don\'t have account</string>
     <string name="register">REGISTER</string>
+    <string name="join_text">Join</string>
+    <string name="login_text">Login</string>
 </resources>

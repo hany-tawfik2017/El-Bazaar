@@ -10,12 +10,15 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.hany.el_bazaar.NavigationFragments.HomeFragment;
 import com.hany.el_bazaar.activities.JoinActivity;
 import com.hany.el_bazaar.activities.LoginActivity;
@@ -30,10 +33,12 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout relativeLayout;
     private String title;
     private NavigationView navigationView;
-    private TextView login, join;
+    private LinearLayout authLayout;
+    private TextView login, join, navigationEmail;
     private android.support.v4.app.Fragment fragment;
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +91,19 @@ public class MainActivity extends AppCompatActivity {
         relativeLayout = (RelativeLayout) header.findViewById(R.id.rl_header);
         login = (TextView) relativeLayout.findViewById(R.id.login);
         join = (TextView) relativeLayout.findViewById(R.id.join);
+        navigationEmail = (TextView) relativeLayout.findViewById(R.id.email_nav);
+        authLayout = (LinearLayout) relativeLayout.findViewById(R.id.auth_layout);
+        auth = FirebaseAuth.getInstance();
+        boolean authenticated = false;
+        if (auth.getCurrentUser() != null) {
+            authLayout.setVisibility(View.INVISIBLE);
+            navigationEmail.setVisibility(View.VISIBLE);
+            navigationEmail.setText(auth.getCurrentUser().getEmail());
+            Menu menu = navigationView.getMenu();
+            menu.add(R.id.two, Menu.NONE, Menu.NONE, "Log out");
+
+        }
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
