@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="342dp"
+        android:layout_height="167.2dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:layout_alignParentStart="true">
+        <ImageView
+            android:id="@+id/bazaar_img"
+            android:layout_width="match_parent"
+            android:layout_height="89.2dp"
+            android:src="@drawable/bazaar_image"
+            android:scaleType="centerCrop"/>
+        <TextView
+            android:id="@+id/bazaar_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bazaar_img"
+            android:layout_marginStart="7dp"
+            android:textColor="@color/product_name"
+            android:textSize="14sp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:text="LONGCHAMP"
+            />
+
+        <TextView
+            android:id="@+id/organizer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:lineSpacingExtra="2sp"
+            android:text="Organizer Name"
+            android:layout_marginTop="7dp"
+            android:layout_marginStart="7dp"
+            android:layout_below="@id/bazaar_name"
+            />
+        <ImageView
+            android:id="@+id/mark"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:src="@drawable/map_mark"
+            android:layout_marginTop="7.3dp"
+            android:layout_marginStart="7dp"
+            android:layout_below="@id/organizer_name"/>
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="@color/warm_grey"
+            android:lineSpacingExtra="2sp"
+            android:text="City Star Mall"
+            android:layout_below="@id/organizer_name"
+            android:layout_toEndOf="@id/mark"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="3.5dp"
+            android:id="@+id/bazaar_place" />
+
+        <ImageView
+            android:id="@+id/vendors_img"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignBottom="@+id/bazaar_place"
+            android:layout_marginEnd="7dp"
+            android:layout_alignBaseline="@id/mark"
+            android:layout_marginBottom="1dp"
+            android:layout_toStartOf="@+id/vendors_count"
+            android:src="@drawable/vendors_icon" />
+
+        <TextView
+            android:id="@+id/vendors_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/organizer_name"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="11dp"
+            android:fontFamily="sans-serif"
+            android:layout_alignBaseline="@id/bazaar_place"
+            android:lineSpacingExtra="2sp"
+            android:text="4 Vendors"
+            android:textColor="@color/warm_grey"
+            android:textSize="11sp"
+            android:textStyle="normal"
+            tools:ignore="SmallSp" />
+
+    </RelativeLayout>
+</RelativeLayout>

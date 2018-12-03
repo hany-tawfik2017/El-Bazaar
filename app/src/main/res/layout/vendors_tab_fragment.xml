@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/service_back"
     >
 
     <TextView
@@ -28,10 +28,16 @@
         android:src="@drawable/sort_image"
         />
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/vendors"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/item_count"
         android:layout_marginTop="14dp"
+        android:fadeScrollbars="false"
+        android:transcriptMode="alwaysScroll"
+        android:scrollbars = "none"
+        android:scrollbarAlwaysDrawVerticalTrack="false"
+        android:scrollbarStyle="outsideOverlay"
         />
 
 </RelativeLayout>

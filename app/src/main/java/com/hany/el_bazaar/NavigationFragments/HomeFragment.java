@@ -41,7 +41,6 @@ public class HomeFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-
         return view;
     }
 }

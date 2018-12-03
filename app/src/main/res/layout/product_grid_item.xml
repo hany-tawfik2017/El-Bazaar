@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="166dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="4dp">
+
+    <FrameLayout
+        android:id="@+id/images_layout"
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+    <ImageView
+        android:id="@+id/product_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/necklace_img" />
+        <ImageView
+            android:id="@+id/select_favourite"
+            android:layout_width="20dp"
+            android:layout_height="25dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/unselected_fav_product"/>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_below="@+id/images_layout"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="120dp">
+
+        <TextView
+            android:id="@+id/product_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="8dp"
+            android:textSize="13sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="@color/product_name"
+            android:lineSpacingExtra="2sp"
+            android:text="TextView" />
+        <RatingBar
+            android:id="@+id/product_rate"
+            android:layout_width="wrap_content"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:numStars="5"
+            android:stepSize="1"
+            android:layout_marginStart="8dp"
+            android:indeterminateTint="@color/gold"
+            android:progressBackgroundTint="@color/gold"
+            android:backgroundTint="@color/gold"
+            android:foregroundTint="@color/gold"
+            />
+        <TextView
+            android:id="@+id/product_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="8dp"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold"
+            android:textColor="@color/product_name"
+            android:lineSpacingExtra="2sp"
+            android:text="299.99 EGP" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+            <ImageView
+                android:id="@+id/mark"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/map_mark"
+                />
+            <TextView
+                android:id="@+id/bazaar_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:textColor="@color/warm_grey"
+                android:textSize="10sp"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="sans-serif"
+                android:textStyle="normal"
+                tools:text="LONGCHAMP, City Star Mall"
+                tools:ignore="SmallSp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

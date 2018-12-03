@@ -68,10 +68,12 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/white"
+        android:theme="@style/ThemeToolbarNavigationView"
         app:elevation="5dp"
         app:itemTextColor="@color/black"
         app:itemIconTint="#f969bb"
         app:headerLayout="@layout/nav_header"
+        app:itemTextAppearance="@style/TextNavigationView"
         app:menu="@menu/navigation_menu"/>
 
 

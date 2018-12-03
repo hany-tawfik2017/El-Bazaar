@@ -79,9 +79,6 @@ public class MainActivity extends AppCompatActivity {
                         case R.id.home:
                             selectNavigationFragment(new HomeFragment(), drawerLayout, "Home");
                             break;
-                        case R.id.browse:
-                            Toast.makeText(MainActivity.this, "browse", Toast.LENGTH_LONG).show();
-                            break;
                     }
                     return true;
                 }
@@ -95,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         authLayout = (LinearLayout) relativeLayout.findViewById(R.id.auth_layout);
         auth = FirebaseAuth.getInstance();
         boolean authenticated = false;
-        if (auth.getCurrentUser() != null) {
+        if (auth.getCurrentUser() != null && authenticated) {
             authLayout.setVisibility(View.INVISIBLE);
             navigationEmail.setVisibility(View.VISIBLE);
             navigationEmail.setText(auth.getCurrentUser().getEmail());

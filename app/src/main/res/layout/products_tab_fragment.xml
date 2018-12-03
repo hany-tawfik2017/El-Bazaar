@@ -1,11 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:background="@color/white"
+    android:background="@color/service_back"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/item_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/greyish"
+        android:textSize="12sp"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal"
+        />
+    <ImageView
+        android:id="@+id/sort_img"
+        android:layout_width="14dp"
+        android:layout_height="18dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="22dp"
+        android:src="@drawable/sort_image"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/products"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_count"
+        android:layout_marginTop="15dp"
+        android:fadeScrollbars="false"
+        android:transcriptMode="alwaysScroll"
+        android:scrollbars = "none"
+        android:scrollbarAlwaysDrawVerticalTrack="false"
+        android:scrollbarStyle="outsideOverlay"
+        />
+    </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_product"
@@ -17,6 +54,5 @@
         android:layout_margin="15dp"
         android:src="@drawable/ic_plus"
         app:fabSize="normal"
-
         />
 </android.support.design.widget.CoordinatorLayout>
