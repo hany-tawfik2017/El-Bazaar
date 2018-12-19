@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="65dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="65dp">
+
+            <ImageView
+                android:id="@+id/back_img"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="17dp"
+                android:src="@drawable/back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:fontFamily="sans-serif"
+                android:lineSpacingExtra="4sp"
+                android:text="@string/edit_profile_title"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </android.support.design.widget.AppBarLayout>
+
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/about_edit"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="15dp"
+        android:hint="About me"
+        android:inputType="textMultiLine"
+        app:met_baseColor="@color/black"
+        app:met_primaryColor="@color/sapphire"
+        app:met_textColorHint="@color/steel_grey" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/brand_edit"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="15dp"
+        android:hint="Brand Name"
+        android:inputType="text"
+        android:visibility="gone"
+        app:met_baseColor="@color/black"
+        app:met_primaryColor="@color/sapphire"
+        app:met_textColorHint="@color/steel_grey" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/google_edit"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="15dp"
+        android:hint="Google+"
+        android:inputType="textWebEditText"
+        app:met_baseColor="@color/black"
+        app:met_primaryColor="@color/sapphire"
+        app:met_textColorHint="@color/steel_grey" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/facebook_edit"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="15dp"
+        android:hint="Facebook"
+        android:inputType="textWebEditText"
+        app:met_baseColor="@color/black"
+        app:met_primaryColor="@color/sapphire"
+        app:met_textColorHint="@color/steel_grey" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/instagram_edit"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="15dp"
+        android:hint="Instagram"
+        android:inputType="textWebEditText"
+        app:met_baseColor="@color/black"
+        app:met_primaryColor="@color/sapphire"
+        app:met_textColorHint="@color/steel_grey" />
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="328dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="63.5dp"
+        android:background="@drawable/btn_background"
+        android:text="@string/save_profile_btn" />
+</LinearLayout>

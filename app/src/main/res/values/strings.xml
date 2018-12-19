@@ -29,4 +29,22 @@
     <string name="register">REGISTER</string>
     <string name="join_text">Join</string>
     <string name="login_text">Login</string>
+    <string name="profile_title">Profile</string>
+    <string name="edit_profile_title">Edit Profile</string>
+    <string name="save_profile_btn">SAVE</string>
+    <string name="post_your_product">Post Your Product</string>
+    <string name="bazaar_and_location">Bazaar and it\'s location</string>
+    <string name="post">POST</string>
+    <string name="description">Description</string>
+    <string name="product_desc">Chambray Carles Terry Gibson balls plaid wolf. Disrupt fashion axe 90\'s quinoa +1 Neutra. Irony ethnic ennui McSweeney\'s, semiotics small.</string>
+    <string name="read_more">Read More</string>
+    <string name="vendor_contacts">Vendor Contacts</string>
+    <string name="about_me">About Me</string>
+    <string name="about_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,se d do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, qu is nostrud exercitatio ullamco laboris nisi ut aliqu ip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit ess cillum dolg</string>
+    <string name="organizers">Organizers</string>
+    <string name="reviews">Reviews</string>
+    <string name="write_review">Write Review</string>
+    <string name="by_user">By user-</string>
+    <string name="organizer_contacts">Organizer Contacts</string>
+    <string name="vendors">Vendors</string>
 </resources>

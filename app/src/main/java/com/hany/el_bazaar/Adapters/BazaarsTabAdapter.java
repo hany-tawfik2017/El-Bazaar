@@ -1,6 +1,7 @@
 package com.hany.el_bazaar.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.hany.el_bazaar.Model.Bazaar;
 import com.hany.el_bazaar.R;
+import com.hany.el_bazaar.activities.BazaarDetailsActivity;
 
 import java.util.ArrayList;
 
@@ -37,11 +39,23 @@ public class BazaarsTabAdapter extends RecyclerView.Adapter<BazaarsTabAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BazaarsTabAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final BazaarsTabAdapter.ViewHolder holder, final int position) {
         holder.vendorsCount.setText(""+bazaars.get(position).getVendorNumbers()+" Vendors");
         holder.organizerName.setText(bazaars.get(position).getOrganizerName());
         holder.bazaarName.setText(bazaars.get(position).getBazaarName());
         holder.bazaarPlace.setText(bazaars.get(position).getBazaarPlace());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, BazaarDetailsActivity.class);
+                intent.putExtra("vendorsNumbers",bazaars.get(position).getVendorNumbers());
+                intent.putExtra("organizerName",bazaars.get(position).getOrganizerName());
+                intent.putExtra("bazaarName",bazaars.get(position).getBazaarName());
+                intent.putExtra("bazaarPlace",bazaars.get(position).getBazaarPlace());
+                context.startActivity(intent);
+            }
+        });
 
     }
 

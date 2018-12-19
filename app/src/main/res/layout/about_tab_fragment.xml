@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<RelativeLayout
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/about_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19.3dp"
+        android:layout_marginStart="13dp"
+        android:textSize="18sp"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="normal"
+        android:textColor="@color/black"
+        android:text="@string/about_me"
+        />
+    <TextView
+        android:id="@+id/about_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal"
+        android:textColor="@color/warm_grey"
+        android:lineSpacingExtra="2sp"
+        android:layout_below="@+id/about_title"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="7dp"
+        android:text="@string/about_text"
+        />
+    <ImageView
+        android:id="@+id/separator"
+        android:layout_width="335dp"
+        android:layout_height="12dp"
+        android:src="@drawable/profile_sperator"
+        android:layout_below="@+id/about_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"/>
+
+    <TextView
+        android:id="@+id/brand_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19.3dp"
+        android:layout_marginStart="13dp"
+        android:textSize="18sp"
+        android:layout_below="@id/separator"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="normal"
+        android:textColor="@color/black"
+        android:text="Brand Name"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/brand_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal"
+        android:textColor="@color/warm_grey"
+        android:lineSpacingExtra="2sp"
+        android:layout_below="@+id/brand_title"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="7dp"
+        android:text="Lorem ipsum"
+        android:visibility="gone"
+        />
+    <ImageView
+        android:id="@+id/separator2"
+        android:layout_width="335dp"
+        android:layout_height="12dp"
+        android:src="@drawable/profile_sperator"
+        android:layout_below="@+id/brand_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:visibility="gone"/>
+    <TextView
+        android:id="@+id/contacts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/separator2"
+        android:layout_marginTop="18.5dp"
+        android:textSize="18sp"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="normal"
+        android:textColor="#000000"
+        android:text="Contacts"
+        android:layout_marginStart="13dp"/>
+    <ImageView
+        android:id="@+id/facebook_contact"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/contacts"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="8.3dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/facebook"/>
+    <ImageView
+        android:id="@+id/google_contact"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/contacts"
+        android:layout_toEndOf="@+id/facebook_contact"
+        android:layout_marginTop="8.3dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/google_plus_icon"/>
+    <ImageView
+        android:id="@+id/instagram_contact"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/contacts"
+        android:layout_toEndOf="@+id/google_contact"
+        android:layout_marginTop="8.3dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/instagram"/>
+
+</RelativeLayout>
+</ScrollView>

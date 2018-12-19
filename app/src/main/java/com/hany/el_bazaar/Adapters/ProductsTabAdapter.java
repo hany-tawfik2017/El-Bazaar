@@ -1,6 +1,7 @@
 package com.hany.el_bazaar.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.hany.el_bazaar.Model.Product;
 import com.hany.el_bazaar.R;
+import com.hany.el_bazaar.activities.ProductDetailsActivity;
 
 import java.util.ArrayList;
 
@@ -37,7 +39,7 @@ public class ProductsTabAdapter extends RecyclerView.Adapter<ProductsTabAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductsTabAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ProductsTabAdapter.ViewHolder holder, final int position) {
         holder.productName.setText(products.get(position).getProductName());
         holder.productPrice.setText(products.get(position).getProductPrice());
         holder.bazaarAddress.setText("LONGCHAMP, City Star Mall");
@@ -50,6 +52,15 @@ public class ProductsTabAdapter extends RecyclerView.Adapter<ProductsTabAdapter.
             holder.favImage.setImageResource(R.drawable.unselected_fav_product);
         else
             holder.favImage.setImageResource(R.drawable.selected_fav_product);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ProductDetailsActivity.class);
+                intent.putExtra("productName",products.get(position).getProductName());
+                intent.putExtra("productPrice",products.get(position).getProductPrice());
+                context.startActivity(intent);
+            }
+        });
 
     }
 

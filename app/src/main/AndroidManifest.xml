@@ -28,6 +28,13 @@
         <activity android:name=".activities.JoinActivity">
 
         </activity>
+        <activity android:name=".activities.ProfileActivity">
+
+        </activity>
+        <activity android:name=".activities.EditProfileActivity">
+
+        </activity>
+
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
 
@@ -45,6 +52,8 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.ProductDetailsActivity" />
+        <activity android:name=".activities.BazaarDetailsActivity" />
 
     </application>
 

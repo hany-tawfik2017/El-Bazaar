@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,9 +20,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.hany.el_bazaar.Model.User;
 import com.hany.el_bazaar.NavigationFragments.HomeFragment;
 import com.hany.el_bazaar.activities.JoinActivity;
 import com.hany.el_bazaar.activities.LoginActivity;
+import com.hany.el_bazaar.activities.ProfileActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
     private FirebaseAuth auth;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +64,24 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
 
+    }
+
+    private void checkUserType(User user) {
+        MenuItem item;
+        Menu menu = navigationView.getMenu();
+        if (user.userType.equals("Organizer")) {
+            item = menu.add(R.id.auth_group, Menu.NONE, Menu.NONE, "Post Your Bazaar");
+        } else {
+            item = menu.add(R.id.auth_group, Menu.NONE, Menu.NONE, "Post Your Product");
+        }
+        item.setIcon(R.drawable.add_post_icon);
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Toast.makeText(MainActivity.this, "post your data", Toast.LENGTH_LONG).show();
+                return true;
+            }
+        });
     }
 
     @Override
@@ -84,6 +110,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+        ValueEventListener userListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                checkUserType(user);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("retrieve data error", databaseError.getMessage());
+            }
+        };
         header = navigationView.getHeaderView(0);
         relativeLayout = (RelativeLayout) header.findViewById(R.id.rl_header);
         login = (TextView) relativeLayout.findViewById(R.id.login);
@@ -116,7 +154,8 @@ public class MainActivity extends AppCompatActivity {
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "profile activity", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(intent);
             }
         });
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);

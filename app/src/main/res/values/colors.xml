@@ -14,4 +14,7 @@
     <color name="black_87">#de000000</color>
     <color name="service_back">#fafafa</color>
     <color name="product_name">#333333</color>
+    <color name="warm_grey_two">#999999</color>
+    <color name="warm_grey_three">#888888</color>
+    <color name="bubblegum">#f969bb</color>
 </resources>

@@ -131,7 +131,7 @@ public class JoinFragment extends Fragment {
         reference.child(userId).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-
+                    joiningUser();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -188,6 +188,7 @@ public class JoinFragment extends Fragment {
                         else {
                             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.fragment_container, new FinishJoinFragment());
+                            fragmentTransaction.addToBackStack("finishJoin");
                             fragmentTransaction.commit();
                         }
                     }
