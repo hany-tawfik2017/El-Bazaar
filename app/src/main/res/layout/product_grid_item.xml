@@ -30,6 +30,16 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="15dp"
             android:src="@drawable/unselected_fav_product"/>
+        <ImageView
+            android:id="@+id/unselect_favourite"
+            android:layout_width="20dp"
+            android:layout_height="25dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/selected_fav_product"
+            android:visibility="invisible"
+            />
     </FrameLayout>
 
     <LinearLayout
@@ -62,33 +72,49 @@
             android:numStars="5"
             android:stepSize="1"
             android:layout_marginStart="8dp"
-            android:indeterminateTint="@color/gold"
             android:progressBackgroundTint="@color/gold"
             android:backgroundTint="@color/gold"
             android:foregroundTint="@color/gold"
             />
-        <TextView
-            android:id="@+id/product_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="7dp"
-            android:layout_marginTop="8dp"
-            android:textSize="12sp"
-            android:fontFamily="sans-serif"
-            android:textStyle="bold"
-            android:textColor="@color/product_name"
-            android:lineSpacingExtra="2sp"
-            android:text="299.99 EGP" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="8dp">
+            <TextView
+                android:id="@+id/product_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+
+                android:textSize="12sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"
+                android:textColor="@color/product_name"
+                android:lineSpacingExtra="2sp"
+                android:text="299.99" />
+            <TextView
+                android:id="@+id/product_currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"
+                android:textColor="@color/product_name"
+                android:lineSpacingExtra="2sp"
+                android:layout_marginStart="4dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="11dp">
             <ImageView
                 android:id="@+id/mark"
                 android:layout_width="13dp"
                 android:layout_height="13dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="4dp"
                 android:src="@drawable/map_mark"
                 />

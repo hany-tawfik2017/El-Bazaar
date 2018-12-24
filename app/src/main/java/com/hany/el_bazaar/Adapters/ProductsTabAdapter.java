@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.hany.el_bazaar.Model.Product;
 import com.hany.el_bazaar.R;
 import com.hany.el_bazaar.activities.ProductDetailsActivity;
@@ -25,6 +27,9 @@ public class ProductsTabAdapter extends RecyclerView.Adapter<ProductsTabAdapter.
 
     Context context;
     ArrayList<Product> products;
+    boolean isList;
+    boolean isFavoriteList;
+    DatabaseReference reference;
 
     public ProductsTabAdapter(Context context, ArrayList<Product> products) {
         this.context = context;
@@ -34,7 +39,7 @@ public class ProductsTabAdapter extends RecyclerView.Adapter<ProductsTabAdapter.
     @NonNull
     @Override
     public ProductsTabAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.product_grid_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(!isList ? R.layout.product_grid_item : R.layout.favorite_list_item, parent, false);
         return new ProductsTabAdapter.ViewHolder(view);
     }
 
@@ -42,26 +47,58 @@ public class ProductsTabAdapter extends RecyclerView.Adapter<ProductsTabAdapter.
     public void onBindViewHolder(@NonNull final ProductsTabAdapter.ViewHolder holder, final int position) {
         holder.productName.setText(products.get(position).getProductName());
         holder.productPrice.setText(products.get(position).getProductPrice());
+        holder.productCurrency.setText(products.get(position).getProductCurrency());
         holder.bazaarAddress.setText("LONGCHAMP, City Star Mall");
         if (products.get(position).getProductName().contains("Necklace"))
             holder.productImage.setImageResource(R.drawable.necklace_img);
         else
             holder.productImage.setImageResource(R.drawable.perfume_img);
 
-        if (!products.get(position).isFavorite())
-            holder.favImage.setImageResource(R.drawable.unselected_fav_product);
-        else
-            holder.favImage.setImageResource(R.drawable.selected_fav_product);
+        if (products.get(position).isFavorite()) {
+            holder.favImage.setVisibility(View.INVISIBLE);
+            holder.unFavImage.setVisibility(View.VISIBLE);
+        }
+
+        reference = FirebaseDatabase.getInstance().getReference("products");
+        if (!isFavoriteList) {
+            holder.favImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    holder.favImage.setVisibility(View.INVISIBLE);
+                    holder.unFavImage.setVisibility(View.VISIBLE);
+                    reference.child(products.get(position).getProductId()).child("isFavorite").setValue(true);
+                }
+            });
+            holder.unFavImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    holder.favImage.setVisibility(View.VISIBLE);
+                    holder.unFavImage.setVisibility(View.INVISIBLE);
+                    reference.child(products.get(position).getProductId()).child("isFavorite").setValue(false);
+                }
+            });
+        }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProductDetailsActivity.class);
-                intent.putExtra("productName",products.get(position).getProductName());
-                intent.putExtra("productPrice",products.get(position).getProductPrice());
+                intent.putExtra("productName", products.get(position).getProductName());
+                intent.putExtra("productPrice", products.get(position).getProductPrice());
+                intent.putExtra("productId", products.get(position).getProductId());
+                intent.putExtra("address", holder.bazaarAddress.getText().toString());
                 context.startActivity(intent);
             }
         });
 
+    }
+
+    public void setFavoriteList(boolean favoriteList) {
+        isFavoriteList = favoriteList;
+    }
+
+    public void setList(boolean list) {
+        isList = list;
     }
 
     @Override
@@ -73,8 +110,8 @@ public class ProductsTabAdapter extends RecyclerView.Adapter<ProductsTabAdapter.
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView productImage, favImage;
-        TextView productName, productPrice,bazaarAddress;
+        ImageView productImage, favImage, unFavImage;
+        TextView productName, productPrice, bazaarAddress, productCurrency;
         RatingBar productRate;
 
         public ViewHolder(View itemView) {
@@ -85,6 +122,8 @@ public class ProductsTabAdapter extends RecyclerView.Adapter<ProductsTabAdapter.
             productPrice = itemView.findViewById(R.id.product_price);
             productRate = itemView.findViewById(R.id.product_rate);
             bazaarAddress = itemView.findViewById(R.id.bazaar_address);
+            productCurrency = itemView.findViewById(R.id.product_currency);
+            unFavImage = itemView.findViewById(R.id.unselect_favourite);
         }
     }
 }

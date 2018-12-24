@@ -23,7 +23,7 @@ public class FinishJoinFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View finishView = inflater.inflate(R.layout.bazaars_tab_fragment, container, false);
+        View finishView = inflater.inflate(R.layout.fragment_finish_join, container, false);
         final Button doneBtn = (Button) finishView.findViewById(R.id.done_button);
         doneBtn.setOnClickListener(new View.OnClickListener() {
             @Override

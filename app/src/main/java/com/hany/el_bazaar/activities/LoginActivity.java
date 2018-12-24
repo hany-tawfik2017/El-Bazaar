@@ -1,10 +1,15 @@
 package com.hany.el_bazaar.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -18,7 +23,6 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,9 +31,14 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.hany.el_bazaar.Defaults;
 import com.hany.el_bazaar.MainActivity;
 import com.hany.el_bazaar.R;
 import com.rengwuxian.materialedittext.MaterialEditText;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 /**
  * Created by Hany on 10/16/2018.
@@ -72,10 +81,11 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Animation alphaAnimation = AnimationUtils.loadAnimation(LoginActivity.this,R.anim.button_alpha_anim);
+                final Animation alphaAnimation = AnimationUtils.loadAnimation(LoginActivity.this, R.anim.button_alpha_anim);
                 v.startAnimation(alphaAnimation);
                 if (checkFields())
                     auth.signInWithEmailAndPassword(emailText.getText().toString(), passText.getText().toString())
@@ -85,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                                     if (!task.isSuccessful())
                                         Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_LONG).show();
                                     else {
+                                        Defaults.setDefaults("auth","verified",LoginActivity.this);
                                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                         finish();
                                     }
@@ -92,9 +103,11 @@ public class LoginActivity extends AppCompatActivity {
                             });
             }
         });
+
         facebookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("email", "public_profile"));
                 LoginManager.getInstance().registerCallback(facebookCallBack, new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
@@ -144,7 +157,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (!task.isSuccessful())
-                    Toast.makeText(LoginActivity.this, "Login with facebook is failed!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 else {
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
@@ -152,6 +165,21 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void getFaceBookHashKey(Context context) {
+        try {
+            PackageInfo info = context.getPackageManager().getPackageInfo(
+                    "com.hany.el_bazaar",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException | NoSuchAlgorithmException ignored) {
+            ignored.printStackTrace();
+        }
     }
 
 }

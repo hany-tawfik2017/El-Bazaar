@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.hany.el_bazaar.Defaults;
 import com.hany.el_bazaar.Model.User;
 import com.hany.el_bazaar.R;
 import com.hany.el_bazaar.activities.LoginActivity;
@@ -40,7 +42,6 @@ public class JoinFragment extends Fragment {
     final FirebaseDatabase databse = FirebaseDatabase.getInstance();
     Button join;
     TextView loginText, fullNameText, emailText, mobileText, passwordText, addressText;
-    ImageView backImage;
     RadioButton organizerType, vendorType;
     RadioGroup radioGroup;
     String userId;
@@ -115,23 +116,10 @@ public class JoinFragment extends Fragment {
 
         User user = new User(fullNameText.getText().toString(), emailText.getText().toString(), passwordText.getText().toString(), addressText.getText().toString(), mobileText.getText().toString(), type);
 
-//        auth.createUserWithEmailAndPassword(emailText.getText().toString().trim(), passwordText.getText().toString().trim())
-//                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (!task.isSuccessful())
-//                            Toast.makeText(getActivity(), "joining is failing", Toast.LENGTH_LONG).show();
-//                        else {
-//                            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                            fragmentTransaction.replace(R.id.fragment_container, new FinishJoinFragment());
-//                            fragmentTransaction.commit();
-//                        }
-//                    }
-//                });
         reference.child(userId).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                    joiningUser();
+                joiningUser();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -184,11 +172,13 @@ public class JoinFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful())
-                            Toast.makeText(getActivity(), "joining is failing", Toast.LENGTH_LONG).show();
+                            Log.e("not success","task failed");
+                            //Toast.makeText(getActivity(), "joining is failing", Toast.LENGTH_LONG).show();
                         else {
-                            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                            Defaults.setDefaults("userId", userId, getActivity());
+                            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.fragment_container, new FinishJoinFragment());
-                            fragmentTransaction.addToBackStack("finishJoin");
+                            fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
                         }
                     }

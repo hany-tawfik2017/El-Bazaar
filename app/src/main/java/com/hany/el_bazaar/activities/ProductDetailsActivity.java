@@ -62,6 +62,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         actionBarTitle.setText((CharSequence) getIntent().getExtras().get("productName"));
         productName.setText((CharSequence)getIntent().getExtras().get("productName"));
         productPrice.setText((CharSequence)getIntent().getExtras().get("productPrice"));
+        bazaarAddress.setText((CharSequence)getIntent().getExtras().get("address"));
         setupReviews();
         reviewsAdapter = new ReviewsAdapter(this,reviews);
         reviewsList.setAdapter(reviewsAdapter);

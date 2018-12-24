@@ -22,6 +22,9 @@
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
 
     </style>
+    <style name="SpinnerTheme" parent="Base.Widget.AppCompat.DropDownItem.Spinner">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
     <style name="TabLayoutTextStyle">
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
@@ -35,6 +38,7 @@
         <!--<item name="android:windowBackground">@color/background_color</item>-->
         <item name="android:windowDisablePreview">true</item>
         <item name="android:itemBackground">@color/white</item>
+        <item name="SpinKitViewStyle">@style/SpinKitView.Large.DoubleBounce</item>
         <item name="android:actionMenuTextColor">@color/steel_grey</item>
         <item name="android:actionMenuTextAppearance">@color/steel_grey</item>
         <item name="android:windowContentTransitions">true</item>

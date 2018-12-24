@@ -25,11 +25,34 @@
         android:id="@+id/sort_img"
         android:layout_width="14dp"
         android:layout_height="18dp"
-        android:layout_alignParentEnd="true"
+        android:layout_toStartOf="@+id/convert_layout"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="22dp"
+        android:layout_marginEnd="24dp"
         android:src="@drawable/sort_image"
         />
+        <FrameLayout
+            android:id="@+id/convert_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp">
+
+            <ImageView
+                android:id="@+id/convert_list_img"
+                android:layout_width="16dp"
+                android:layout_height="20dp"
+                android:src="@drawable/list_img"
+                />
+            <ImageView
+                android:id="@+id/convert_grid_img"
+                android:layout_width="16dp"
+                android:layout_height="20dp"
+                android:src="@drawable/grid_img"
+                android:visibility="invisible"
+                />
+        </FrameLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/products"
         android:layout_width="match_parent"
@@ -44,6 +67,14 @@
         />
     </RelativeLayout>
 
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        style="@style/SpinKitView.DoubleBounce"
+        app:SpinKit_Color="@color/colorPrimary"
+        />
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_product"
         android:layout_width="56dp"

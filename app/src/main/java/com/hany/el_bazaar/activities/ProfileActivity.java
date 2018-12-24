@@ -49,7 +49,7 @@ public class ProfileActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         reference = FirebaseDatabase.getInstance().getReference("users");
-        reference.child("-LRnJ8eIJAP_pRsNZ7PB").addValueEventListener(new ValueEventListener() {
+        reference.child("-LUDErAcJeTJOVVz0o3l").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String,String> data = (Map<String, String>) dataSnapshot.getValue();
@@ -61,18 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Toast.makeText(ProfileActivity.this,databaseError.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
-        reference.child("-LRnJ8eIJAP_pRsNZ7PB").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Map<String,String> data = (Map<String, String>) dataSnapshot.getValue();
-                Toast.makeText(ProfileActivity.this,data.toString(),Toast.LENGTH_LONG).show();
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(ProfileActivity.this,databaseError.getMessage(),Toast.LENGTH_LONG).show();
-            }
-        });
         backImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

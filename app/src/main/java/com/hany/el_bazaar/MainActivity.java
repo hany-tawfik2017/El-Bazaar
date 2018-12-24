@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,12 +21,15 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hany.el_bazaar.Model.User;
 import com.hany.el_bazaar.NavigationFragments.HomeFragment;
+import com.hany.el_bazaar.activities.FavoritesActivity;
 import com.hany.el_bazaar.activities.JoinActivity;
 import com.hany.el_bazaar.activities.LoginActivity;
+import com.hany.el_bazaar.activities.PostProductActivity;
 import com.hany.el_bazaar.activities.ProfileActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private FirebaseAuth auth;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,30 +61,87 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setIcon(R.drawable.logo_toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        auth = FirebaseAuth.getInstance();
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        header = navigationView.getHeaderView(0);
+        relativeLayout = (RelativeLayout) header.findViewById(R.id.rl_header);
+        navigationEmail = (TextView) relativeLayout.findViewById(R.id.email_nav);
+        authLayout = (LinearLayout) relativeLayout.findViewById(R.id.auth_layout);
         fragment = new HomeFragment();
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
 
+        if (Defaults.getDefaults("userId", this) != null && auth.getCurrentUser() != null && Defaults.getDefaults("auth", this) != null) {
+            authLayout.setVisibility(View.INVISIBLE);
+            navigationEmail.setVisibility(View.VISIBLE);
+            navigationEmail.setText(auth.getCurrentUser().getEmail());
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+            final Menu finalMenu = navigationView.getMenu();
+            reference.child(Defaults.getDefaults("userId", this)).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    User user = dataSnapshot.getValue(User.class);
+                    checkUserType(user);
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Toast.makeText(MainActivity.this, databaseError.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+        }
     }
 
     private void checkUserType(User user) {
-        MenuItem item;
+        MenuItem item = null;
         Menu menu = navigationView.getMenu();
-        if (user.userType.equals("Organizer")) {
-            item = menu.add(R.id.auth_group, Menu.NONE, Menu.NONE, "Post Your Bazaar");
-        } else {
-            item = menu.add(R.id.auth_group, Menu.NONE, Menu.NONE, "Post Your Product");
-        }
-        item.setIcon(R.drawable.add_post_icon);
-        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+        MenuItem item1 = menu.add(R.id.two, Menu.NONE, Menu.NONE, "Log out");
+        item1.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Toast.makeText(MainActivity.this, "post your data", Toast.LENGTH_LONG).show();
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                auth.signOut();
+                Defaults.removeDefaults("auth", MainActivity.this);
+                Toast.makeText(MainActivity.this, "you are logged out", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                finish();
                 return true;
             }
         });
+        boolean isOrganizer = false;
+        if (user.userType.equals("Organizer")) {
+            item = menu.add(R.id.auth_group, Menu.NONE, Menu.NONE, "Post Your Bazaar");
+            isOrganizer = true;
+        } else if (user.userType.equals("Vendor")) {
+            item = menu.add(R.id.auth_group, Menu.NONE, Menu.NONE, "Post Your Product");
+            isOrganizer = false;
+        }
+//        MenuItem profileItem = menu.add(R.id.one,Menu.NONE,Menu.NONE,"Profile");
+//        profileItem.setIcon(R.drawable.profile_icon);
+//        final boolean finalIsOrganizer = isOrganizer;
+//        profileItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
+//                intent.putExtra("isOrganizer", finalIsOrganizer);
+//                startActivity(intent);
+//                return true;
+//            }
+//        });
+        if (item != null) {
+            item.setIcon(R.drawable.add_post_icon);
+            item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    startActivity(new Intent(MainActivity.this, PostProductActivity.class));
+                    finish();
+                    return true;
+                }
+            });
+        }
+
     }
 
     @Override
@@ -96,48 +156,35 @@ public class MainActivity extends AppCompatActivity {
 
     public void initNavigationDrawer() {
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        Menu menu = null;
         if (navigationView != null) {
+            menu = navigationView.getMenu();
             navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     int id = item.getItemId();
+
                     switch (id) {
                         case R.id.home:
                             selectNavigationFragment(new HomeFragment(), drawerLayout, "Home");
                             break;
+                        case R.id.favorites:
+                            startActivity(new Intent(MainActivity.this, FavoritesActivity.class));
+                            break;
                     }
+
                     return true;
                 }
             });
         }
-        ValueEventListener userListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                checkUserType(user);
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("retrieve data error", databaseError.getMessage());
-            }
-        };
+
         header = navigationView.getHeaderView(0);
         relativeLayout = (RelativeLayout) header.findViewById(R.id.rl_header);
         login = (TextView) relativeLayout.findViewById(R.id.login);
         join = (TextView) relativeLayout.findViewById(R.id.join);
         navigationEmail = (TextView) relativeLayout.findViewById(R.id.email_nav);
         authLayout = (LinearLayout) relativeLayout.findViewById(R.id.auth_layout);
-        auth = FirebaseAuth.getInstance();
-        boolean authenticated = false;
-        if (auth.getCurrentUser() != null && authenticated) {
-            authLayout.setVisibility(View.INVISIBLE);
-            navigationEmail.setVisibility(View.VISIBLE);
-            navigationEmail.setText(auth.getCurrentUser().getEmail());
-            Menu menu = navigationView.getMenu();
-            menu.add(R.id.two, Menu.NONE, Menu.NONE, "Log out");
-
-        }
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,8 +221,23 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle.syncState();
     }
 
+    private void getUser(DataSnapshot dataSnapshot, Menu menu) {
+        user = dataSnapshot.getValue(User.class);
+        MenuItem item = null;
+        if (user != null && auth.getCurrentUser() != null && Defaults.getDefaults("auth", this) != null)
+            if (user.userType.equals("Vendor"))
+                item = menu.add(R.id.auth_group, Menu.NONE, Menu.NONE, "Post your product");
+            else if (user.userType.equals("Organizer"))
+                item = menu.add(R.id.auth_group, Menu.NONE, Menu.NONE, "Post your Bazaar");
+        if (item != null)
+            item.setIcon(R.drawable.add_post_icon);
+
+        Toast.makeText(MainActivity.this, user != null ? user.email : "not user", Toast.LENGTH_LONG).show();
+    }
+
     public void selectNavigationFragment(Fragment replacedFragment, DrawerLayout drawerLayout, String tag) {
         drawerLayout.closeDrawers();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, replacedFragment).commit();
     }
+
 }

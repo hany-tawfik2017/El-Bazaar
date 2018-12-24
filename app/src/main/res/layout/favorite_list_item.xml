@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp">
+
+    <RelativeLayout
+        android:layout_width="342dp"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/product_img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="1dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/necklace_img" />
+
+        <ImageView
+            android:id="@+id/divider_img"
+            android:layout_width="7dp"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/product_img"
+            android:src="@drawable/necklace_img" />
+
+        <TextView
+            android:id="@+id/product_name"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@id/divider_img"
+            android:fontFamily="sans-serif"
+            android:text="Product Name"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            android:textStyle="normal" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="11dp">
+            <ImageView
+                android:id="@+id/select_favourite"
+                android:layout_width="17.5dp"
+                android:layout_height="15.1dp"
+                android:src="@drawable/unselected_fav_product"
+                />
+            <ImageView
+                android:id="@+id/unselect_favourite"
+                android:layout_width="17.5dp"
+                android:layout_height="15.1dp"
+                android:visibility="invisible"
+                android:src="@drawable/selected_fav_product"
+                />
+        </FrameLayout>
+
+        <RatingBar
+            android:id="@+id/product_rate"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/product_name"
+            android:layout_below="@+id/product_name"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/gold"
+            android:foregroundTint="@color/gold"
+            android:indeterminateTint="@color/gold"
+            android:numStars="5"
+            android:progressBackgroundTint="@color/gold"
+            android:progressTint="@color/gold"
+            android:stepSize="1" />
+
+        <TextView
+            android:id="@+id/product_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/product_name"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@id/product_rate"
+            android:fontFamily="sans-serif"
+            android:lineSpacingExtra="2sp"
+            android:text="249.99"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/product_currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/product_name"
+            android:layout_toEndOf="@id/product_price"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="5dp"
+            android:fontFamily="sans-serif"
+            android:lineSpacingExtra="2sp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:text="EGP"
+            />
+
+        <ImageView
+            android:id="@+id/mark"
+            android:layout_width="8.2dp"
+            android:layout_height="10.8dp"
+            android:layout_alignStart="@id/product_rate"
+            android:layout_below="@id/product_rate"
+            android:layout_marginTop="12.9dp"
+            android:src="@drawable/map_mark" />
+
+        <TextView
+            android:id="@+id/bazaar_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/product_rate"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="11.9dp"
+            android:layout_toEndOf="@id/mark"
+            android:fontFamily="sans-serif"
+            android:lineSpacingExtra="3sp"
+            android:text="LONGCHAMP - City Star Mall"
+            android:textColor="@color/warm_grey"
+            android:textSize="10sp"
+            android:textStyle="normal"
+            tools:ignore="SmallSp" />
+
+    </RelativeLayout>
+</RelativeLayout>

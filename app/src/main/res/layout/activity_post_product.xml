@@ -53,6 +53,7 @@
             android:src="@drawable/correct_sign" />
 
         <TextView
+            android:id="@+id/image_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/action_bar"
@@ -64,26 +65,51 @@
             android:textColor="#000000"
             android:textSize="14sp"
             android:textStyle="normal"
-            tools:text="Take or choose 3 photos" />
-
+            android:text="Take or choose 3 photos" />
+        <FrameLayout
+            android:id="@+id/first_images_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/first_correct"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="14.3dp"
+            >
         <ImageView
             android:id="@+id/first_image"
             android:layout_width="95dp"
             android:layout_height="95dp"
-            android:layout_below="@+id/first_correct"
-            android:layout_marginStart="27dp"
-            android:layout_marginTop="14.3dp"
             android:src="@color/white" />
+            <Button
+                android:id="@+id/add_first_image"
+                android:layout_width="39.2dp"
+                android:layout_height="39.2dp"
+                android:layout_gravity="center"
+                android:background="@drawable/plus"
+                />
+        </FrameLayout>
+        <FrameLayout
+            android:id="@+id/second_images_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/first_correct"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="14.3dp"
+            android:layout_toEndOf="@+id/first_images_layout">
 
         <ImageView
             android:id="@+id/second_image"
             android:layout_width="95dp"
             android:layout_height="95dp"
-            android:layout_below="@+id/first_correct"
-            android:layout_marginStart="11dp"
-            android:layout_marginTop="14.3dp"
-            android:layout_toEndOf="@+id/first_image"
             android:src="@color/white" />
+            <Button
+                android:id="@+id/add_second_image"
+                android:layout_width="39.2dp"
+                android:layout_height="39.2dp"
+                android:layout_gravity="center"
+                android:background="@drawable/plus"
+                android:visibility="invisible"
+                />
+        </FrameLayout>
 
         <FrameLayout
             android:id="@+id/images_layout"
@@ -92,7 +118,7 @@
             android:layout_below="@+id/first_correct"
             android:layout_marginStart="11dp"
             android:layout_marginTop="14.3dp"
-            android:layout_toEndOf="@+id/second_image">
+            android:layout_toEndOf="@+id/second_images_layout">
 
             <ImageView
                 android:id="@+id/third_image"
@@ -101,18 +127,19 @@
                 android:src="@color/white" />
 
             <Button
-                android:id="@+id/add_image"
+                android:id="@+id/add_third_image"
                 android:layout_width="39.2dp"
                 android:layout_height="39.2dp"
                 android:layout_gravity="center"
-                android:background="@drawable/plus" />
+                android:background="@drawable/plus"
+                android:visibility="invisible"/>
         </FrameLayout>
 
         <ImageView
             android:id="@+id/second_correct"
             android:layout_width="12dp"
             android:layout_height="14dp"
-            android:layout_below="@+id/first_image"
+            android:layout_below="@+id/first_images_layout"
             android:layout_marginStart="23.5dp"
             android:layout_marginTop="30dp"
             android:src="@drawable/correct_sign" />
@@ -121,7 +148,7 @@
             android:id="@+id/post_title"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/first_image"
+            android:layout_below="@+id/first_images_layout"
             android:layout_marginStart="9.5dp"
             android:layout_marginTop="15dp"
             android:layout_toEndOf="@+id/second_correct"
@@ -154,15 +181,18 @@
             app:met_primaryColor="@color/sapphire"
             app:met_textColorHint="@color/steel_grey" />
 
-        <android.support.v7.widget.AppCompatSpinner
+        <Spinner
+            android:id="@+id/currency_spinner"
+            style="@style/SpinnerTheme"
             android:layout_width="110dp"
             android:layout_height="25dp"
             android:layout_below="@+id/post_title"
             android:layout_marginStart="35dp"
             android:layout_marginTop="33dp"
             android:layout_toEndOf="@id/post_price"
-            android:backgroundTint="@color/warm_grey_two"
-            android:foregroundTint="@color/warm_grey_three"
+            android:entries="@array/currency_array"
+            android:foregroundTint="@color/black"
+            android:prompt="@string/capacity"
             android:spinnerMode="dropdown" />
 
         <ImageView
@@ -217,7 +247,8 @@
             android:layout_width="310.7dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/bazaar_and_location"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
             android:fadeScrollbars="false"
             android:scrollbarAlwaysDrawVerticalTrack="false"
             android:scrollbarStyle="insideOverlay"

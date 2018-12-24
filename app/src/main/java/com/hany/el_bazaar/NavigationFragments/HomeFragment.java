@@ -32,6 +32,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        viewPager.setOffscreenPageLimit(2);
         TabsPagerAdapter tabsAdapter = new TabsPagerAdapter(getChildFragmentManager());
         tabsAdapter.addFragment(new ProductsTabFragment(), "Products");
         tabsAdapter.addFragment(new BazaarsTabFragment(), "Bazaars");
