@@ -23,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hany.el_bazaar.Model.User;
 import com.hany.el_bazaar.NavigationFragments.HomeFragment;
@@ -78,17 +79,15 @@ public class MainActivity extends AppCompatActivity {
             navigationEmail.setVisibility(View.VISIBLE);
             navigationEmail.setText(auth.getCurrentUser().getEmail());
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-            final Menu finalMenu = navigationView.getMenu();
-            reference.child(Defaults.getDefaults("userId", this)).addValueEventListener(new ValueEventListener() {
+            reference.child(Defaults.getDefaults("userId", this)).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     User user = dataSnapshot.getValue(User.class);
                     checkUserType(user);
-
                 }
 
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
+                public void onCancelled(@NonNull DatabaseError databaseError) {
                     Toast.makeText(MainActivity.this, databaseError.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
@@ -103,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 auth.signOut();
+                Defaults.removeDefaults("userId", MainActivity.this);
                 Defaults.removeDefaults("auth", MainActivity.this);
                 Toast.makeText(MainActivity.this, "you are logged out", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
@@ -111,31 +111,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         boolean isOrganizer = false;
-        if (user.userType.equals("Organizer")) {
-            item = menu.add(R.id.auth_group, Menu.NONE, Menu.NONE, "Post Your Bazaar");
-            isOrganizer = true;
-        } else if (user.userType.equals("Vendor")) {
-            item = menu.add(R.id.auth_group, Menu.NONE, Menu.NONE, "Post Your Product");
-            isOrganizer = false;
-        }
-//        MenuItem profileItem = menu.add(R.id.one,Menu.NONE,Menu.NONE,"Profile");
-//        profileItem.setIcon(R.drawable.profile_icon);
-//        final boolean finalIsOrganizer = isOrganizer;
-//        profileItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
-//                intent.putExtra("isOrganizer", finalIsOrganizer);
-//                startActivity(intent);
-//                return true;
-//            }
-//        });
+        if (user.userType != null)
+            if (user.userType.equals("Organizer")) {
+                item = menu.add(R.id.auth_group, Menu.NONE, Menu.NONE, "Post Your Bazaar");
+                isOrganizer = true;
+
+            } else if (user.userType.equals("Vendor")) {
+                item = menu.add(R.id.auth_group, Menu.NONE, Menu.NONE, "Post Your Product");
+                isOrganizer = false;
+            }
         if (item != null) {
             item.setIcon(R.drawable.add_post_icon);
+            final boolean finalIsOrganizer = isOrganizer;
             item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
-                    startActivity(new Intent(MainActivity.this, PostProductActivity.class));
+                    Intent intent = new Intent(MainActivity.this, PostProductActivity.class);
+                    intent.putExtra("isOrganizer", finalIsOrganizer);
+                    startActivity(intent);
                     finish();
                     return true;
                 }
@@ -198,13 +191,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, JoinActivity.class));
             }
         });
-        relativeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                startActivity(intent);
-            }
-        });
+        if (Defaults.getDefaults("userId", this) != null && auth.getCurrentUser() != null && Defaults.getDefaults("auth", this) != null)
+            relativeLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                }
+            });
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.close_drawer) {
             @Override

@@ -12,7 +12,7 @@ import java.util.List;
 public class Product {
 
 
-    public String productName, productPrice, productCurrency,productDesc,productId;
+    public String productName, productPrice, productCurrency,productDesc,productId,vendorName;
     public boolean isFavorite;
     public List<String> images;
 

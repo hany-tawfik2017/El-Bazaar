@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp">
+
+    <RelativeLayout
+        android:layout_width="334dp"
+        android:layout_height="97dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:id="@+id/bazaar_img"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bazaar_profile"/>
+
+        <TextView
+            android:id="@+id/bazaar_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/bazaar_img"
+            android:layout_marginStart="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="8dp"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            android:fontFamily="sans-serif"
+            android:textColor="#333333"
+            android:text="Vendor Name"
+            />
+
+        <ImageView
+            android:id="@+id/mark"
+            android:layout_width="10dp"
+            android:layout_height="12dp"
+            android:layout_below="@id/bazaar_name"
+            android:layout_alignStart="@id/bazaar_name"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/map_mark"
+            />
+        <TextView
+            android:id="@+id/bazaar_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bazaar_name"
+            android:layout_alignStart="@+id/bazaar_name"
+            android:layout_marginTop="7dp"
+            android:layout_marginStart="14dp"
+            android:textSize="11.2sp"
+            android:textColor="@color/warm_grey"
+            android:text="City Stars Mall"
+            />
+        <ImageView
+            android:id="@+id/calendar"
+            android:layout_width="10dp"
+            android:layout_height="12dp"
+            android:layout_below="@id/mark"
+            android:layout_alignStart="@id/bazaar_name"
+            android:layout_marginTop="7dp"
+            android:src="@drawable/calendar"
+            />
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bazaar_place"
+            android:layout_alignStart="@+id/bazaar_place"
+            android:layout_marginTop="5dp"
+            android:textSize="11.2sp"
+            android:textColor="@color/warm_grey"
+            android:text="March 2018"
+            />
+        <ImageView
+            android:id="@+id/vendors_icon"
+            android:layout_width="10dp"
+            android:layout_height="12dp"
+            android:layout_below="@id/calendar"
+            android:layout_alignStart="@id/calendar"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/vendors_icon"
+            />
+        <TextView
+            android:id="@+id/vendors_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/date"
+            android:layout_alignStart="@+id/date"
+            android:layout_marginTop="7dp"
+            android:textSize="11.2sp"
+            android:textColor="@color/warm_grey"
+            android:text="Vendors"
+            />
+
+
+
+
+    </RelativeLayout>
+</RelativeLayout>

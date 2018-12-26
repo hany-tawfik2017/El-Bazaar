@@ -176,6 +176,8 @@ public class JoinFragment extends Fragment {
                             //Toast.makeText(getActivity(), "joining is failing", Toast.LENGTH_LONG).show();
                         else {
                             Defaults.setDefaults("userId", userId, getActivity());
+                            Defaults.setDefaults("userName",fullNameText.getText().toString(),getActivity());
+                            Defaults.setDefaults("userType",type,getActivity());
                             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.fragment_container, new FinishJoinFragment());
                             fragmentTransaction.addToBackStack(null);

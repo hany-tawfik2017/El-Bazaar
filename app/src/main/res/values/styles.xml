@@ -30,6 +30,10 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">false</item>
     </style>
+    <style name="AppThemeRatingBar" parent="Theme.AppCompat">
+        <item name="colorAccent">@color/gold</item>
+        <item name="android:colorControlNormal">@color/warm_grey</item>
+    </style>
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -41,6 +45,7 @@
         <item name="SpinKitViewStyle">@style/SpinKitView.Large.DoubleBounce</item>
         <item name="android:actionMenuTextColor">@color/steel_grey</item>
         <item name="android:actionMenuTextAppearance">@color/steel_grey</item>
+        <item name="android:ratingBarStyle">@style/AppThemeRatingBar</item>
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
         <item name="android:windowAllowReturnTransitionOverlap">true</item>

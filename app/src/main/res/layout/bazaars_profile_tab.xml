@@ -2,15 +2,30 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/service_back"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/bazaars_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fadeScrollbars="false"
+        android:transcriptMode="alwaysScroll"
+        android:scrollbars = "none"
+        android:scrollbarAlwaysDrawVerticalTrack="false"
+        android:scrollbarStyle="outsideOverlay"
+        />
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:textSize="36sp"
-        android:textColor="@color/black"
-        android:text="Bazaars"
+        style="@style/SpinKitView.DoubleBounce"
+        app:SpinKit_Color="@color/colorPrimary"
         />
+
+
+
 
 </RelativeLayout>

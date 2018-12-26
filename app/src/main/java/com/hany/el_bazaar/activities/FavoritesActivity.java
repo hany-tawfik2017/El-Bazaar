@@ -22,6 +22,7 @@ import com.hany.el_bazaar.Model.Product;
 import com.hany.el_bazaar.R;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -92,6 +93,7 @@ public class FavoritesActivity extends AppCompatActivity {
                     product.setProductName((String) mapObj.get("productName"));
                     product.setProductPrice((String) mapObj.get("productPrice"));
                     product.setProductDesc((String) mapObj.get("productDesc"));
+                    product.setImages((List<String>) mapObj.get("images"));
                     products.add(product);
                 }
             }

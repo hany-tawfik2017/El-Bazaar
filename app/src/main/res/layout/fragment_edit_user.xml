@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/service_back"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/name_edit"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="20dp"
+        android:hint="Full name"
+        android:inputType="textMultiLine"
+        app:met_baseColor="@color/black"
+        app:met_primaryColor="@color/sapphire"
+        app:met_textColorHint="@color/steel_grey" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/email_edit"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="15dp"
+        android:hint="Email"
+        android:inputType="text"
+        app:met_baseColor="@color/black"
+        app:met_primaryColor="@color/sapphire"
+        app:met_textColorHint="@color/steel_grey" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/edit_mobile"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="15dp"
+        android:hint="Mobile"
+        android:inputType="number"
+        app:met_baseColor="@color/black"
+        app:met_primaryColor="@color/sapphire"
+        app:met_textColorHint="@color/steel_grey" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/address_edit"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="15dp"
+        android:hint="Address"
+        android:inputType="text"
+        app:met_baseColor="@color/black"
+        app:met_primaryColor="@color/sapphire"
+        app:met_textColorHint="@color/steel_grey" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/password_edit"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="15dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:met_baseColor="@color/black"
+        app:met_primaryColor="@color/sapphire"
+        app:met_textColorHint="@color/steel_grey" />
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="328dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="63.5dp"
+        android:background="@drawable/btn_background"
+        android:text="@string/save_profile_btn" />
+
+</LinearLayout>

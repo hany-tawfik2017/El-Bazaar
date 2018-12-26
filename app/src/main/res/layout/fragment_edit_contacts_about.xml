@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/service_back"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/about_edit"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="20dp"
+        android:hint="About me"
+        android:inputType="textMultiLine"
+        app:met_baseColor="@color/black"
+        app:met_primaryColor="@color/sapphire"
+        app:met_textColorHint="@color/steel_grey" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/brand_edit"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="15dp"
+        android:hint="Brand Name"
+        android:inputType="text"
+        android:visibility="gone"
+        app:met_baseColor="@color/black"
+        app:met_primaryColor="@color/sapphire"
+        app:met_textColorHint="@color/steel_grey" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/google_edit"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="15dp"
+        android:hint="Google+"
+        android:inputType="textWebEditText"
+        app:met_baseColor="@color/black"
+        app:met_primaryColor="@color/sapphire"
+        app:met_textColorHint="@color/steel_grey" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/facebook_edit"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="15dp"
+        android:hint="Facebook"
+        android:inputType="textWebEditText"
+        app:met_baseColor="@color/black"
+        app:met_primaryColor="@color/sapphire"
+        app:met_textColorHint="@color/steel_grey" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/instagram_edit"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="15dp"
+        android:hint="Instagram"
+        android:inputType="textWebEditText"
+        app:met_baseColor="@color/black"
+        app:met_primaryColor="@color/sapphire"
+        app:met_textColorHint="@color/steel_grey" />
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="328dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="63.5dp"
+        android:background="@drawable/btn_background"
+        android:text="@string/save_profile_btn" />
+
+</LinearLayout>

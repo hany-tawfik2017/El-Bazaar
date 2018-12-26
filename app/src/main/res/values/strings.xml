@@ -56,4 +56,10 @@
         <item>SAR</item>
         <item>EUR</item>
     </string-array>
+    <string-array name="capacity_array">
+        <item>4 Vendors</item>
+        <item>5 Vendors</item>
+        <item>6 Vendors</item>
+        <item>7 Vendors</item>
+    </string-array>
 </resources>

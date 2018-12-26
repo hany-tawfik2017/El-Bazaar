@@ -43,18 +43,26 @@
             </LinearLayout>
         </android.support.design.widget.AppBarLayout>
 
-            <com.smarteist.autoimageslider.SliderLayout
-                android:layout_width="match_parent"
-                android:layout_height="262.4dp"
-                android:id="@+id/image_slider"
-                android:layout_below="@+id/action_bar"
-                />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_below="@id/action_bar"
+            android:layout_width="match_parent"
+            android:layout_height="227dp"
+            android:layout_marginBottom="8dp"/>
+
+        <LinearLayout
+            android:id="@+id/slider_dots"
+            android:layout_below="@+id/viewPager"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
         <View
             android:id="@+id/separator"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"
-            android:layout_below="@+id/image_slider"/>
+            android:layout_below="@+id/slider_dots"/>
         <ImageView
             android:id="@+id/organizer_image"
             android:layout_width="40dp"
@@ -209,25 +217,25 @@
             android:lineSpacingExtra="6sp"
             android:text="@string/product_desc"
             />
-        <TextView
-            android:id="@+id/read_more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:layout_marginStart="16dp"
-            android:fontFamily="sans-serif"
-            android:textStyle="normal"
-            android:textColor="@color/bubblegum"
-            android:layout_below="@+id/desc_text"
-            android:lineSpacingExtra="2sp"
-            android:text="@string/read_more"
-            />
+        <!--<TextView-->
+            <!--android:id="@+id/read_more"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="12sp"-->
+            <!--android:layout_marginStart="16dp"-->
+            <!--android:fontFamily="sans-serif"-->
+            <!--android:textStyle="normal"-->
+            <!--android:textColor="@color/bubblegum"-->
+            <!--android:layout_below="@+id/desc_text"-->
+            <!--android:lineSpacingExtra="2sp"-->
+            <!--android:text="@string/read_more"-->
+            <!--/>-->
         <View
             android:id="@+id/separator4"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"
-            android:layout_below="@+id/read_more"
+            android:layout_below="@+id/desc_text"
             android:layout_marginTop="12.4dp"
             />
         <TextView
@@ -356,66 +364,101 @@
             android:layout_below="@+id/brand_image"
             android:layout_marginTop="16.5dp"
             />
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/reviews_layout"
             android:layout_width="match_parent"
             android:layout_height="173.8dp"
-            android:orientation="vertical"
             android:layout_below="@id/separator6"
-            android:background="@color/service_back">
+            android:background="@color/service_back"
+            android:orientation="vertical"
+            >
+
             <TextView
+                android:id="@+id/reviews_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:layout_marginTop="13.5dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="13.5dp"
                 android:fontFamily="sans-serif-medium"
-                android:textStyle="normal"
-                android:textColor="@color/black"
                 android:lineSpacingExtra="3sp"
                 android:text="@string/reviews"
-                />
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/reviews"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginTop="11dp"
+                android:layout_below="@+id/reviews_title"
                 android:layout_marginBottom="20.5dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginStart="5dp"
                 android:fadeScrollbars="false"
-                android:transcriptMode="alwaysScroll"
-                android:scrollbars = "none"
                 android:scrollbarAlwaysDrawHorizontalTrack="false"
                 android:scrollbarStyle="outsideOverlay"
-                />
-        </LinearLayout>
+                android:scrollbars="none"
+                android:transcriptMode="alwaysScroll" />
+            <com.github.ybq.android.spinkit.SpinKitView
+                android:id="@+id/loading"
+                style="@style/SpinKitView.DoubleBounce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:SpinKit_Color="@color/colorPrimary" />
+        </RelativeLayout>
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="85.7dp"
+            android:layout_height="110.7dp"
             android:layout_below="@+id/reviews_layout"
-            android:background="#e0e0e0"
-            >
+            android:background="#e0e0e0">
             <RelativeLayout
                 android:layout_width="329dp"
-                android:layout_height="52dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@color/service_back">
-                <ImageView
-                    android:id="@+id/write_review_img"
-                    android:layout_width="22dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/write_review_icon"
-                    android:layout_marginStart="17dp"
-                    android:layout_marginTop="17dp"
-                    />
-                <TextView
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/write_review"
+                    android:layout_width="260dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="Write Review"
+                    android:inputType="textMultiLine"
+                    app:met_baseColor="@color/black"
+                    app:met_iconLeft="@drawable/write_review_icon"
+                    app:met_primaryColor="@color/warm_grey"
+                    app:met_textColorHint="@color/sapphire" />
+
+                <RatingBar
+                    android:id="@+id/review_rate"
+                    style="@style/Base.Widget.AppCompat.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="9.5dp"
-                    android:layout_marginTop="17dp"
-                    android:layout_toEndOf="@+id/write_review_img"
-                    android:text="@string/write_review"
+                    android:layout_below="@id/write_review"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:foregroundTint="@color/gold"
+                    android:numStars="5"
+                    android:progressTint="@color/gold"
+                    android:secondaryProgressTint="@color/gold"
+                    android:progressBackgroundTint="@color/warm_grey"
+                    android:stepSize="1"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/post_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="18dp"
+                    android:text="POST"
                     android:textColor="@color/sapphire"
-                    />
+                    android:visibility="gone" />
 
 
             </RelativeLayout>

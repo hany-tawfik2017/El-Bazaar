@@ -1,17 +1,49 @@
 package com.hany.el_bazaar.Model;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 /**
  * Created by Hany on 12/15/2018.
  */
-
+@IgnoreExtraProperties
 public class Review {
 
-    private String userName,reviewText,reviewDate;
-    private float userRate;
-    public Review(String userName,String reviewText,String reviewDate,float userRate){
+    public String userName,reviewText,reviewDate,productName,bazaarName;
+    public long userRate;
+    public Review(String userName, String reviewText, String reviewDate, long userRate, String productName, String bazaarName){
         this.userName = userName;
         this.reviewDate = reviewDate;
         this.reviewText = reviewText;
+        this.userRate = userRate;
+        this.productName = productName;
+        this.bazaarName = bazaarName;
+    }
+
+    public Review() {
+
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setReviewText(String reviewText) {
+        this.reviewText = reviewText;
+    }
+
+    public void setReviewDate(String reviewDate) {
+        this.reviewDate = reviewDate;
+    }
+
+    public void setUserRate(long userRate) {
         this.userRate = userRate;
     }
 
@@ -27,7 +59,7 @@ public class Review {
         return reviewDate;
     }
 
-    public float getUserRate() {
+    public long getUserRate() {
         return userRate;
     }
 }

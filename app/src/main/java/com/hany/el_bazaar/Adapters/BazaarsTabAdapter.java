@@ -8,13 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.hany.el_bazaar.GlideApp;
 import com.hany.el_bazaar.Model.Bazaar;
 import com.hany.el_bazaar.R;
 import com.hany.el_bazaar.activities.BazaarDetailsActivity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -25,6 +28,8 @@ public class BazaarsTabAdapter extends RecyclerView.Adapter<BazaarsTabAdapter.Vi
 
     Context context;
     ArrayList<Bazaar> bazaars;
+    private boolean isProfileBazaar;
+    StorageReference storageReference;
 
     public BazaarsTabAdapter(Context context, ArrayList<Bazaar> bazaars) {
         this.context = context;
@@ -34,29 +39,42 @@ public class BazaarsTabAdapter extends RecyclerView.Adapter<BazaarsTabAdapter.Vi
     @NonNull
     @Override
     public BazaarsTabAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.bazaar_list_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(!isProfileBazaar ? R.layout.bazaar_list_item : R.layout.bazaar_profile_list_item, parent, false);
         return new BazaarsTabAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final BazaarsTabAdapter.ViewHolder holder, final int position) {
-        holder.vendorsCount.setText(""+bazaars.get(position).getVendorNumbers()+" Vendors");
-        holder.organizerName.setText(bazaars.get(position).getOrganizerName());
+        holder.vendorsCount.setText(bazaars.get(position).getVendorNumbers());
+        if (holder.organizerName != null)
+            holder.organizerName.setText(bazaars.get(position).getOrganizerName());
         holder.bazaarName.setText(bazaars.get(position).getBazaarName());
         holder.bazaarPlace.setText(bazaars.get(position).getBazaarPlace());
+        if (bazaars.get(position).getImages()!=null) {
+            storageReference = FirebaseStorage.getInstance().getReference().child("bazaar/" + bazaars.get(position).getImages().get(0));
+            GlideApp.with(context).load(storageReference).into(holder.bazaarImage);
+        }
+        else
+            holder.bazaarImage.setImageResource(R.drawable.logo);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, BazaarDetailsActivity.class);
-                intent.putExtra("vendorsNumbers",bazaars.get(position).getVendorNumbers());
-                intent.putExtra("organizerName",bazaars.get(position).getOrganizerName());
-                intent.putExtra("bazaarName",bazaars.get(position).getBazaarName());
-                intent.putExtra("bazaarPlace",bazaars.get(position).getBazaarPlace());
+                intent.putExtra("vendorsNumbers", bazaars.get(position).getVendorNumbers());
+                intent.putExtra("organizerName", bazaars.get(position).getOrganizerName());
+                intent.putExtra("bazaarName", bazaars.get(position).getBazaarName());
+                intent.putExtra("bazaarDesc",bazaars.get(position).getBazaarDesc());
+                intent.putExtra("bazaarPlace", bazaars.get(position).getBazaarPlace());
+                intent.putExtra("bazaarImages", (Serializable) bazaars.get(position).getImages());
                 context.startActivity(intent);
             }
         });
 
+    }
+
+    public void setProfileBazaar(boolean isProfileBazaar) {
+        this.isProfileBazaar = isProfileBazaar;
     }
 
     @Override
@@ -69,7 +87,7 @@ public class BazaarsTabAdapter extends RecyclerView.Adapter<BazaarsTabAdapter.Vi
     class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView bazaarImage;
-        TextView bazaarName, organizerName, vendorsCount,bazaarPlace;
+        TextView bazaarName, organizerName, vendorsCount, bazaarPlace;
 
 
         public ViewHolder(View itemView) {

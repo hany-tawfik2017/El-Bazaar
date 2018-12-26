@@ -13,10 +13,14 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.hany.el_bazaar.GlideApp;
 import com.hany.el_bazaar.Model.Product;
 import com.hany.el_bazaar.R;
 import com.hany.el_bazaar.activities.ProductDetailsActivity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -30,6 +34,7 @@ public class ProductsTabAdapter extends RecyclerView.Adapter<ProductsTabAdapter.
     boolean isList;
     boolean isFavoriteList;
     DatabaseReference reference;
+    StorageReference storageReference;
 
     public ProductsTabAdapter(Context context, ArrayList<Product> products) {
         this.context = context;
@@ -49,10 +54,12 @@ public class ProductsTabAdapter extends RecyclerView.Adapter<ProductsTabAdapter.
         holder.productPrice.setText(products.get(position).getProductPrice());
         holder.productCurrency.setText(products.get(position).getProductCurrency());
         holder.bazaarAddress.setText("LONGCHAMP, City Star Mall");
-        if (products.get(position).getProductName().contains("Necklace"))
-            holder.productImage.setImageResource(R.drawable.necklace_img);
+        if (products.get(position).getImages()!=null) {
+            storageReference = FirebaseStorage.getInstance().getReference().child("product/" + products.get(position).getImages().get(0));
+            GlideApp.with(context).load(storageReference).into(holder.productImage);
+        }
         else
-            holder.productImage.setImageResource(R.drawable.perfume_img);
+            holder.productImage.setImageResource(R.drawable.logo);
 
         if (products.get(position).isFavorite()) {
             holder.favImage.setVisibility(View.INVISIBLE);
@@ -85,8 +92,10 @@ public class ProductsTabAdapter extends RecyclerView.Adapter<ProductsTabAdapter.
                 Intent intent = new Intent(context, ProductDetailsActivity.class);
                 intent.putExtra("productName", products.get(position).getProductName());
                 intent.putExtra("productPrice", products.get(position).getProductPrice());
+                intent.putExtra("productDesc",products.get(position).getProductDesc());
                 intent.putExtra("productId", products.get(position).getProductId());
                 intent.putExtra("address", holder.bazaarAddress.getText().toString());
+                intent.putExtra("productImages", (Serializable) products.get(position).getImages());
                 context.startActivity(intent);
             }
         });

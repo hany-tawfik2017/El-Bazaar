@@ -20,11 +20,16 @@ public class User {
     }
 
     public User(String... userAttributes) {
-        this.name = userAttributes[0];
-        this.email = userAttributes[1];
-        this.password = userAttributes[2];
-        this.address = userAttributes[3];
-        this.mobile = userAttributes[4];
-        this.userType = userAttributes[5];
+        if (userAttributes.length > 2) {
+            this.name = userAttributes[0];
+            this.email = userAttributes[1];
+            this.password = userAttributes[2];
+            this.address = userAttributes[3];
+            this.mobile = userAttributes[4];
+            this.userType = userAttributes[5];
+        } else {
+            this.name = userAttributes[0];
+            this.email = userAttributes[1];
+        }
     }
 }

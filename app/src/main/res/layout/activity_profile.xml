@@ -71,7 +71,17 @@
             android:layout_marginStart="9.4dp"
             android:src="@drawable/edit_profile_image"
             />
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            style="@style/SpinKitView.DoubleBounce"
+            app:SpinKit_Color="@color/colorPrimary"
+            android:visibility="gone"
+            />
         <TextView
+            android:id="@+id/user_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
