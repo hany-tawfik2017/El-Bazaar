@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/service_back">
+    <ImageView
+        android:id="@+id/brand_image"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_below="@id/organizers_title"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/brand_product" />
+
+    <TextView
+        android:id="@+id/vendor_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/organizers_title"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="18.6dp"
+        android:layout_toEndOf="@id/brand_image"
+        android:fontFamily="sans-serif"
+        android:lineSpacingExtra="3sp"
+        android:text="Vendor name"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="normal" />
+
+</RelativeLayout>

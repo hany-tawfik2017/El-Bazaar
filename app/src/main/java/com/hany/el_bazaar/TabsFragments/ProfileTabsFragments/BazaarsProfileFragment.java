@@ -73,7 +73,6 @@ public class BazaarsProfileFragment extends Fragment {
                 Toast.makeText(getActivity(), databaseError.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-        adapter.notifyDataSetChanged();
     }
     private void setBazaarArray(Map<String, Object> map) {
         if (map != null) {

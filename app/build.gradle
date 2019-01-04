@@ -31,10 +31,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:16.0.5'
     compile 'in.gauriinfotech:commons:1.0.8'
     implementation 'com.github.ybq:Android-SpinKit:1.2.0'
-    api('com.nispok:snackbar:2.11.+') {
-        // exclusion is not necessary, but generally a good idea.
-        exclude group: 'com.google.android', module: 'support-v4'
-    }
+//    api('com.nispok:snackbar:2.11.+') {
+//        // exclusion is not necessary, but generally a good idea.
+//        exclude group: 'com.google.android', module: 'support-v4'
+//    }
     compile 'com.android.support:design:27.1.1'
     compile 'com.facebook.android:facebook-android-sdk:4.28.0'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
@@ -56,6 +56,10 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     compile 'com.github.HotBitmapGG:RingProgressBar:V1.2.3'
     implementation 'com.firebaseui:firebase-ui-storage:4.1.0'
+//    compile('com.crashlytics.sdk.android:crashlytics:2.9.7@aar') {
+//        transitive = true;
+//    }
+    implementation 'pub.hanks:smallbang:1.2.2'
 }
 
 

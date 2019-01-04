@@ -8,15 +8,17 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class Review {
 
-    public String userName,reviewText,reviewDate,productName,bazaarName;
+    public String userName,reviewText,reviewDate,productName,bazaarName,organizerName,vendorName;
     public long userRate;
-    public Review(String userName, String reviewText, String reviewDate, long userRate, String productName, String bazaarName){
+    public Review(String userName, String reviewText, String reviewDate, long userRate, String productName, String bazaarName, String organizerName, String vendorName){
         this.userName = userName;
         this.reviewDate = reviewDate;
         this.reviewText = reviewText;
         this.userRate = userRate;
         this.productName = productName;
         this.bazaarName = bazaarName;
+        this.organizerName = organizerName;
+        this.vendorName = vendorName;
     }
 
     public Review() {

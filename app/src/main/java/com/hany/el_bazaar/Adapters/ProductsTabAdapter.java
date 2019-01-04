@@ -10,11 +10,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.hany.el_bazaar.Defaults;
 import com.hany.el_bazaar.GlideApp;
 import com.hany.el_bazaar.Model.Product;
 import com.hany.el_bazaar.R;
@@ -22,6 +27,7 @@ import com.hany.el_bazaar.activities.ProductDetailsActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Hany on 11/30/2018.
@@ -53,27 +59,60 @@ public class ProductsTabAdapter extends RecyclerView.Adapter<ProductsTabAdapter.
         holder.productName.setText(products.get(position).getProductName());
         holder.productPrice.setText(products.get(position).getProductPrice());
         holder.productCurrency.setText(products.get(position).getProductCurrency());
-        holder.bazaarAddress.setText("LONGCHAMP, City Star Mall");
-        if (products.get(position).getImages()!=null) {
+        if (products.get(position).getBazaars() != null)
+            holder.bazaarAddress.setText(products.get(position).getBazaars().get(0).get("bazaarName") + "," + products.get(position).getBazaars().get(0).get("bazaarPlace"));
+        else
+            holder.bazaarAddress.setText("LONGCHAMP, City Star Mall");
+        if (products.get(position).getImages() != null) {
             storageReference = FirebaseStorage.getInstance().getReference().child("product/" + products.get(position).getImages().get(0));
             GlideApp.with(context).load(storageReference).into(holder.productImage);
-        }
-        else
+        } else
             holder.productImage.setImageResource(R.drawable.logo);
 
-        if (products.get(position).isFavorite()) {
+        if (Defaults.getDefaults("userId", context) != null && products.get(position).isFavorite() && products.get(position).getFavoriteUsers() != null && products.get(position).getFavoriteUsers().contains(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
             holder.favImage.setVisibility(View.INVISIBLE);
             holder.unFavImage.setVisibility(View.VISIBLE);
         }
-
+        if (products.get(position).getProductRate() != 0 && holder.productRate != null)
+            holder.productRate.setRating(products.get(position).getProductRate());
         reference = FirebaseDatabase.getInstance().getReference("products");
-        if (!isFavoriteList) {
+        if (!isFavoriteList && Defaults.getDefaults("userId", context) != null) {
             holder.favImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    final List<String> favoriteUsers;
                     holder.favImage.setVisibility(View.INVISIBLE);
                     holder.unFavImage.setVisibility(View.VISIBLE);
-                    reference.child(products.get(position).getProductId()).child("isFavorite").setValue(true);
+                    if (!products.get(position).isFavorite) {
+                        products.get(position).isFavorite = true;
+                        favoriteUsers = new ArrayList<>();
+                        favoriteUsers.add(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                    } else {
+                        favoriteUsers = products.get(position).getFavoriteUsers();
+                        if (!favoriteUsers.contains(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
+                            favoriteUsers.add(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                    }
+                    reference.child(products.get(position).getProductId()).child("isFavorite").setValue(true).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            reference.child(products.get(position).getProductId()).child("favoriteUsers").setValue(favoriteUsers).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(context, "Added to Favorites", Toast.LENGTH_LONG).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
             });
             holder.unFavImage.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +120,39 @@ public class ProductsTabAdapter extends RecyclerView.Adapter<ProductsTabAdapter.
                 public void onClick(View v) {
                     holder.favImage.setVisibility(View.VISIBLE);
                     holder.unFavImage.setVisibility(View.INVISIBLE);
-                    reference.child(products.get(position).getProductId()).child("isFavorite").setValue(false);
+                    if (products.get(position).getFavoriteUsers() != null) {
+                        products.get(position).getFavoriteUsers().remove(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                        if (products.get(position).getFavoriteUsers().size() == 0) {
+                            products.get(position).isFavorite = false;
+                        }
+                    }
+                    reference.child(products.get(position).getProductId()).child("isFavorite").setValue(products.get(position).isFavorite())
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    if (!products.get(position).isFavorite())
+                                        products.get(position).getFavoriteUsers().clear();
+                                    reference.child(products.get(position).getProductId()).child("favoriteUsers").setValue(products.get(position).getFavoriteUsers())
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(context, "Removed from Favorites", Toast.LENGTH_LONG).show();
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
                 }
             });
         }
@@ -92,10 +163,23 @@ public class ProductsTabAdapter extends RecyclerView.Adapter<ProductsTabAdapter.
                 Intent intent = new Intent(context, ProductDetailsActivity.class);
                 intent.putExtra("productName", products.get(position).getProductName());
                 intent.putExtra("productPrice", products.get(position).getProductPrice());
-                intent.putExtra("productDesc",products.get(position).getProductDesc());
+                intent.putExtra("productCurrency", products.get(position).getProductCurrency());
+                intent.putExtra("productDesc", products.get(position).getProductDesc());
                 intent.putExtra("productId", products.get(position).getProductId());
                 intent.putExtra("address", holder.bazaarAddress.getText().toString());
                 intent.putExtra("productImages", (Serializable) products.get(position).getImages());
+                intent.putExtra("favoriteUsers", (Serializable) products.get(position).getFavoriteUsers());
+                intent.putExtra("isFavorite", products.get(position).isFavorite);
+                if (products.get(position).getProductRate() != 0)
+                    intent.putExtra("productRate", products.get(position).getProductRate());
+                if (products.get(position).getVendor() != null) {
+                    intent.putExtra("vendorName", products.get(position).getVendor().get("vendorName"));
+                    intent.putExtra("vendorEmail", products.get(position).getVendor().get("vendorEmail"));
+                }
+                if (products.get(position).getBazaars() != null) {
+                    intent.putExtra("bazaarName", products.get(position).getBazaars().get(0).get("bazaarName"));
+                    intent.putExtra("bazaarPlace", products.get(position).getBazaars().get(0).get("bazaarPlace"));
+                }
                 context.startActivity(intent);
             }
         });

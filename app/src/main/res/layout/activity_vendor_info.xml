@@ -36,7 +36,7 @@
                     android:layout_marginStart="10dp"
                     android:fontFamily="sans-serif"
                     android:lineSpacingExtra="4sp"
-                    android:text="Product Name"
+                    android:text="Vendor information"
                     android:textColor="#ffffff"
                     android:textSize="18sp"
                     android:textStyle="normal" />
@@ -44,207 +44,98 @@
         </android.support.design.widget.AppBarLayout>
 
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewPager"
+        <RelativeLayout
+            android:id="@+id/first_layout"
             android:layout_width="match_parent"
-            android:layout_height="227dp"
+            android:layout_height="226dp"
             android:layout_below="@+id/action_bar"
-            android:layout_marginBottom="8dp" />
+            android:background="@color/service_back">
 
-        <LinearLayout
-            android:id="@+id/slider_dots"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/viewPager"
-            android:gravity="center_vertical|center_horizontal"
-            android:orientation="horizontal"
-            android:layout_marginBottom="7dp"/>
+            <ImageView
+                android:id="@+id/organizer_profile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/vendor_brand_icon"/>
 
-        <ImageView
-            android:id="@+id/select_favourite"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_above="@id/slider_dots"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="35dp"
-            android:layout_marginEnd="18dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/unselected_fav_product" />
+            <TextView
+                android:id="@+id/vendor_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/organizer_profile"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="11dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Vendor Name"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/brand_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/warm_grey"
+                android:textSize="18sp"
+                android:layout_below="@+id/vendor_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="7dp"
+                android:text="Brand Name"
+                />
+            <RatingBar
+                android:id="@+id/vendor_rate"
+                style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/brand_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="11dp"
+                android:layout_marginStart="26dp"
+                android:foregroundTint="@color/gold"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:progressBackgroundTint="@color/warm_grey"
+                android:progressTint="@color/gold"
+                android:secondaryProgressTint="@color/gold"
+                android:stepSize="1"
+                />
+
+        </RelativeLayout>
 
 
         <View
             android:id="@+id/separator"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@+id/slider_dots"
+            android:layout_below="@+id/first_layout"
             android:background="@android:color/darker_gray" />
 
-        <ImageView
-            android:id="@+id/brand_image"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_below="@id/separator"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="6.6dp"
-            android:src="@drawable/brand_product" />
 
-        <TextView
-            android:id="@+id/vendor_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/separator"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="18.6dp"
-            android:layout_toEndOf="@id/brand_image"
-            android:fontFamily="sans-serif"
-            android:lineSpacingExtra="3sp"
-            android:text="Vendor name"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            android:textStyle="normal" />
-
-        <TextView
-            android:id="@+id/text_sep"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/separator"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="18.6dp"
-            android:layout_toEndOf="@id/vendor_name"
-            android:fontFamily="sans-serif"
-            android:lineSpacingExtra="3sp"
-            android:text="-"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            android:textStyle="normal" />
-
-        <TextView
-            android:id="@+id/brand_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/separator"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="18.6dp"
-            android:layout_toEndOf="@id/text_sep"
-            android:fontFamily="sans-serif"
-            android:lineSpacingExtra="3sp"
-            android:text="Brand name"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            android:textStyle="normal" />
-
-        <View
-            android:id="@+id/separator2"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/brand_image"
-            android:layout_marginTop="5.5dp"
-            android:background="@android:color/darker_gray" />
-
-        <TextView
-            android:id="@+id/product_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/separator2"
-            android:layout_marginBottom="18dp"
-            android:layout_marginStart="17dp"
-            android:layout_marginTop="14.5dp"
-            android:fontFamily="sans-serif"
-            android:lineSpacingExtra="3sp"
-            android:text="Product Name"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="normal" />
-
-        <TextView
-            android:id="@+id/product_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/product_name"
-            android:layout_marginBottom="14dp"
-            android:layout_marginStart="17dp"
-            android:fontFamily="sans-serif"
-            android:lineSpacingExtra="3sp"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            tools:text="249.99 EGP" />
-
-        <RatingBar
-            android:id="@+id/product_rate"
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/product_name"
-            android:layout_marginEnd="33.6dp"
-            android:layout_marginStart="8dp"
-            android:foregroundTint="@color/gold"
-            android:isIndicator="true"
-            android:numStars="5"
-            android:progressBackgroundTint="@color/warm_grey"
-            android:progressTint="@color/gold"
-            android:secondaryProgressTint="@color/gold"
-            android:stepSize="1" />
-
-        <LinearLayout
-            android:id="@+id/address_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/product_price"
-            android:layout_marginBottom="15.2dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/mark"
-                android:layout_width="13dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="16.6dp"
-                android:layout_marginTop="4dp"
-                android:src="@drawable/map_mark" />
-
-            <TextView
-                android:id="@+id/bazaar_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="11.2dp"
-                android:fontFamily="sans-serif"
-                android:textColor="@color/warm_grey"
-                android:textSize="12sp"
-                android:textStyle="normal"
-                tools:ignore="SmallSp"
-                tools:text="LONGCHAMP, City Star Mall" />
-        </LinearLayout>
-
-        <View
-            android:id="@+id/separator3"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/address_layout"
-            android:background="@android:color/darker_gray" />
 
         <TextView
             android:id="@+id/desc_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/separator3"
+            android:layout_below="@+id/separator"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12.5dp"
             android:fontFamily="sans-serif-medium"
             android:lineSpacingExtra="3sp"
-            android:text="@string/description"
+            android:text="About"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="normal" />
 
         <TextView
-            android:id="@+id/desc_text"
+            android:id="@+id/about_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/desc_title"
             android:layout_marginStart="16dp"
             android:layout_marginTop="15dp"
+            android:layout_marginBottom="12dp"
             android:fontFamily="sans-serif"
             android:lineSpacingExtra="6sp"
             android:text="@string/product_desc"
@@ -266,10 +157,100 @@
         <!--android:textStyle="normal" />-->
 
         <View
+            android:id="@+id/separator2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/about_content"
+            android:background="@android:color/darker_gray" />
+
+
+
+        <TextView
+            android:id="@+id/bazaars_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/separator2"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12.5dp"
+            android:fontFamily="sans-serif-medium"
+            android:lineSpacingExtra="3sp"
+            android:text="Bazaars"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="normal" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/bazaars"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/bazaars_title"
+            android:layout_marginBottom="20.5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="11dp"
+            android:fadeScrollbars="false"
+            android:scrollbarAlwaysDrawHorizontalTrack="false"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="none"
+            android:transcriptMode="alwaysScroll" />
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/loading2"
+            style="@style/SpinKitView.DoubleBounce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:SpinKit_Color="@color/colorPrimary" />
+
+        <View
+        android:id="@+id/separator3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/bazaars"
+        android:background="@android:color/darker_gray" />
+
+
+
+        <TextView
+            android:id="@+id/products_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/separator3"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12.5dp"
+            android:fontFamily="sans-serif-medium"
+            android:lineSpacingExtra="3sp"
+            android:text="Products"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="normal" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/products"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/products_title"
+            android:layout_marginBottom="20.5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="11dp"
+            android:fadeScrollbars="false"
+            android:scrollbarAlwaysDrawHorizontalTrack="false"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="none"
+            android:transcriptMode="alwaysScroll" />
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/loading3"
+            style="@style/SpinKitView.DoubleBounce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:SpinKit_Color="@color/colorPrimary" />
+
+        <View
             android:id="@+id/separator4"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@+id/desc_text"
+            android:layout_below="@+id/products"
             android:layout_marginTop="12.4dp"
             android:background="@android:color/darker_gray" />
 
@@ -282,7 +263,7 @@
             android:layout_marginTop="12.5dp"
             android:fontFamily="sans-serif-medium"
             android:lineSpacingExtra="3sp"
-            android:text="@string/vendor_contacts"
+            android:text="Contacts"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="normal" />
@@ -320,56 +301,10 @@
             android:src="@drawable/instagram" />
 
         <View
-            android:id="@+id/separator5"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/facebook_contact"
-            android:layout_marginTop="16.5dp"
-            android:background="@android:color/darker_gray" />
-
-        <TextView
-            android:id="@+id/organizers_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/separator5"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12.5dp"
-            android:fontFamily="sans-serif-medium"
-            android:lineSpacingExtra="3sp"
-            android:text="@string/organizers"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:textStyle="normal" />
-
-        <ImageView
-            android:id="@+id/organizer_image"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/organizers_title"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="14.9dp"
-            android:src="@drawable/organizer_icon" />
-
-        <TextView
-            android:id="@+id/organizer_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/organizers_title"
-            android:layout_marginStart="17dp"
-            android:layout_marginTop="26dp"
-            android:layout_toEndOf="@+id/organizer_image"
-            android:fontFamily="sans-serif"
-            android:lineSpacingExtra="3sp"
-            android:text="Organizer name"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:textStyle="normal" />
-
-        <View
             android:id="@+id/separator6"
             android:layout_width="match_parent"
             android:layout_height="16dp"
-            android:layout_below="@+id/organizer_image"
+            android:layout_below="@+id/facebook_contact"
             android:layout_marginTop="16.5dp"
             android:background="#e0e0e0" />
 

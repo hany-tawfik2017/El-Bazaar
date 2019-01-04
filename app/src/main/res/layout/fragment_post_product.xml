@@ -147,19 +147,18 @@
             app:met_primaryColor="@color/sapphire"
             app:met_textColorHint="@color/steel_grey" />
 
-        <Spinner
+        <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/currency_spinner"
             style="@style/SpinnerTheme"
             android:layout_width="110dp"
-            android:layout_height="25dp"
+            android:layout_height="40dp"
             android:layout_below="@+id/post_title"
             android:layout_marginStart="35dp"
-            android:layout_marginTop="33dp"
+            android:layout_marginTop="20dp"
             android:layout_toEndOf="@id/post_price"
             android:entries="@array/currency_array"
-            android:backgroundTint="@color/black"
-            android:foregroundTint="@color/white"
             android:prompt="@string/capacity"
+            android:theme="@style/SpinnerThemeLight"
             android:spinnerMode="dropdown" />
 
         <ImageView
@@ -222,26 +221,26 @@
             android:scrollbars="none"
             android:transcriptMode="alwaysScroll" />
 
-        <TextView
-            android:id="@+id/add_bazaar_vendor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@id/bazaars_vendors"
-            android:layout_marginEnd="37dp"
-            android:layout_marginTop="13.5dp"
-            android:fontFamily="sans-serif-medium"
-            android:lineSpacingExtra="2sp"
-            android:textColor="@color/sapphire"
-            android:textSize="12sp"
-            android:textStyle="normal"
-            android:text="Add another Bazaar" />
+        <!--<TextView-->
+            <!--android:id="@+id/add_bazaar_vendor"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_below="@id/bazaars_vendors"-->
+            <!--android:layout_marginEnd="37dp"-->
+            <!--android:layout_marginTop="13.5dp"-->
+            <!--android:fontFamily="sans-serif-medium"-->
+            <!--android:lineSpacingExtra="2sp"-->
+            <!--android:textColor="@color/sapphire"-->
+            <!--android:textSize="12sp"-->
+            <!--android:textStyle="normal"-->
+            <!--android:text="Add another Bazaar" />-->
 
         <Button
             android:id="@+id/post_button"
             android:layout_width="328dp"
             android:layout_height="56dp"
-            android:layout_below="@+id/add_bazaar_vendor"
+            android:layout_below="@+id/bazaars_vendors"
             android:layout_marginBottom="40dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="37dp"

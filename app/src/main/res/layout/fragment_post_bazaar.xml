@@ -146,17 +146,18 @@
             app:met_primaryColor="@color/sapphire"
             app:met_textColorHint="@color/steel_grey" />
 
-        <Spinner
+        <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/capacity_spinner"
             style="@style/SpinnerTheme"
             android:layout_width="110dp"
-            android:layout_height="25dp"
+            android:layout_height="40dp"
             android:layout_below="@+id/bazaar_name_edit"
             android:layout_marginStart="35dp"
-            android:layout_marginTop="33dp"
+            android:layout_marginTop="20dp"
             android:layout_toEndOf="@id/bazaar_location_edit"
             android:entries="@array/capacity_array"
             android:prompt="@string/capacity"
+            android:theme="@style/SpinnerThemeLight"
             android:spinnerMode="dropdown" />
 
         <ImageView

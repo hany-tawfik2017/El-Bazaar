@@ -35,18 +35,21 @@ public class EditProfileActivity extends AppCompatActivity {
                 finish();
             }
         });
-        if ((Boolean) getIntent().getExtras().get("infoFlag")){
+        Bundle bundle = new Bundle();
+        bundle.putString("userName", getIntent().getExtras().getString("userName"));
+        bundle.putString("userEmail", getIntent().getExtras().getString("userEmail"));
+        bundle.putString("userAddress", getIntent().getExtras().getString("userAddress"));
+        bundle.putString("userMob", getIntent().getExtras().getString("userMob"));
+        bundle.putString("userPass", getIntent().getExtras().getString("userPass"));
+        if (getIntent().getSerializableExtra("about") != null)
+            bundle.putSerializable("about", getIntent().getSerializableExtra("about"));
+        if (getIntent().getExtras().getString("brandName") != null)
+            bundle.putString("brandName", getIntent().getExtras().getString("brandName"));
+        if ((Boolean) getIntent().getExtras().get("infoFlag")) {
             fragment = new EditUserProfileFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString("userName",getIntent().getExtras().getString("userName"));
-            bundle.putString("userEmail",getIntent().getExtras().getString("userEmail"));
-            bundle.putString("userAddress",getIntent().getExtras().getString("userAddress"));
-            bundle.putString("userMob",getIntent().getExtras().getString("userMob"));
-            bundle.putString("userPass",getIntent().getExtras().getString("userPass"));
-            fragment.setArguments(bundle);
-        }
-        else
+        } else
             fragment = new EditAboutContactsFragment();
+        fragment.setArguments(bundle);
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);

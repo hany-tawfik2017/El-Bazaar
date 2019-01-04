@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.github.ybq.android.spinkit.SpinKitView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,6 +38,7 @@ public class FavoritesActivity extends AppCompatActivity {
     ImageView backImage;
     DatabaseReference reference;
     SpinKitView loading;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +56,7 @@ public class FavoritesActivity extends AppCompatActivity {
             }
         });
         favProducts.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ProductsTabAdapter(this,products);
+        adapter = new ProductsTabAdapter(this, products);
         adapter.setList(true);
         adapter.setFavoriteList(true);
         favProducts.setAdapter(adapter);
@@ -67,8 +69,8 @@ public class FavoritesActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 loading.setVisibility(View.INVISIBLE);
-                if(dataSnapshot.exists()){
-                    Map<String,Object> map = (Map<String, Object>) dataSnapshot.getValue();
+                if (dataSnapshot.exists()) {
+                    Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
                     setProductArray(map);
                 }
             }
@@ -76,7 +78,7 @@ public class FavoritesActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 loading.setVisibility(View.INVISIBLE);
-                Toast.makeText(FavoritesActivity.this,databaseError.getMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText(FavoritesActivity.this, databaseError.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -94,7 +96,9 @@ public class FavoritesActivity extends AppCompatActivity {
                     product.setProductPrice((String) mapObj.get("productPrice"));
                     product.setProductDesc((String) mapObj.get("productDesc"));
                     product.setImages((List<String>) mapObj.get("images"));
-                    products.add(product);
+                    product.setFavoriteUsers((List<String>) mapObj.get("favoriteUsers"));
+                    if (product.getFavoriteUsers() != null && product.getFavoriteUsers().contains(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
+                        products.add(product);
                 }
             }
             adapter.notifyDataSetChanged();

@@ -11,6 +11,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,22 +27,29 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.hany.el_bazaar.Adapters.PostItemAdapter;
 import com.hany.el_bazaar.Defaults;
 import com.hany.el_bazaar.GlideApp;
 import com.hany.el_bazaar.MainActivity;
 import com.hany.el_bazaar.Model.Product;
 import com.hany.el_bazaar.R;
-import com.hany.el_bazaar.activities.PostProductActivity;
+import com.hany.el_bazaar.SpinnerCallback;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import in.gauriinfotech.commons.Commons;
 
@@ -60,12 +69,16 @@ public class PostProductFragment extends Fragment {
     TextView imagesTitle;
     StorageReference reference;
     String imageNo;
+    ArrayList<Object> bazaarsLocations;
+    RecyclerView bazaarsVendorsList;
+    PostItemAdapter adapter;
+    ArrayList<Map<String, String>> callbackSpinner;
     List<String> images = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_post_product,container,false);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_post_product, container, false);
         productTitle = view.findViewById(R.id.post_title);
         productPrice = view.findViewById(R.id.post_price);
         productDesc = view.findViewById(R.id.post_desc);
@@ -74,6 +87,11 @@ public class PostProductFragment extends Fragment {
         currencySpinner = view.findViewById(R.id.currency_spinner);
         addFirstImage = view.findViewById(R.id.add_first_image);
         firstImage = view.findViewById(R.id.first_image);
+        bazaarsVendorsList = view.findViewById(R.id.bazaars_vendors);
+        bazaarsLocations = new ArrayList<>();
+        callbackSpinner = new ArrayList<>();
+        bazaarsVendorsList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        setBazaarsList();
         secondImage = view.findViewById(R.id.second_image);
         addSecondImage = view.findViewById(R.id.add_second_image);
         thirdImage = view.findViewById(R.id.third_image);
@@ -115,14 +133,71 @@ public class PostProductFragment extends Fragment {
                     postProduct();
             }
         });
-        DatabaseReference reference = databse.getReference("users");
         return view;
+    }
+
+    private void setBazaarsList() {
+        DatabaseReference reference = databse.getReference("bazaars");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.exists()) {
+                    Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+                    setBazaars(map);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                Toast.makeText(getActivity(), databaseError.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void setBazaars(Map<String, Object> map) {
+        if (map != null) {
+            final ArrayList<Map<String, String>> bazaars = new ArrayList<>();
+            final ArrayList<String> spinnerList = new ArrayList<>();
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                if (entry.getValue() instanceof Map) {
+                    spinnerList.add(((Map) entry.getValue()).get("bazaarName") + " - " + ((Map) entry.getValue()).get("bazaarPlace"));
+                    bazaarsLocations.add((String) ((Map) entry.getValue()).get("bazaarName"));
+                    bazaars.add((Map<String, String>) entry.getValue());
+                }
+            }
+            SpinnerCallback callback = new SpinnerCallback() {
+                @Override
+                public void callback(String itemSelected) {
+                    Map<String, String> bazaarMap = new HashMap<>();
+                    bazaarMap.put("bazaarName", itemSelected.split("-")[0].trim());
+                    for (Map<String, String> map1 : bazaars) {
+                        if (map1.get("bazaarName").equals(itemSelected.split("-")[0].trim())){
+                            bazaarMap.put("bazaarPlace", itemSelected.split("-")[1].trim());
+                            break;
+                        }
+                    }
+                    boolean flag = false;
+                    for (Map<String, String> map1 : callbackSpinner) {
+                        if (map1.get("bazaarName").equals(bazaarMap.get("bazaarName")))
+                            flag = true;
+                    }
+                    if (!flag)
+                        callbackSpinner.add(bazaarMap);
+                }
+            };
+            adapter = new PostItemAdapter(getActivity(), bazaarsLocations, callback);
+            adapter.setSpinnerItems(spinnerList);
+            bazaarsVendorsList.setAdapter(adapter);
+        }
     }
 
     private void startResults(String imageNumber) {
         Intent intent = new Intent();
         intent.setType("*/*");
-        intent.putExtra("imageNo",imageNumber);
+        intent.putExtra("imageNo", imageNumber);
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select File"), 152);
     }
@@ -131,7 +206,10 @@ public class PostProductFragment extends Fragment {
         DatabaseReference reference = databse.getReference("products");
         String productId = reference.push().getKey();
         spinnerSelection = (String) currencySpinner.getSelectedItem();
-        Product product = new Product(productTitle.getText().toString(), productPrice.getText().toString(), spinnerSelection != null ? spinnerSelection : "EGP", productDesc.getText().toString(), images,false);
+        Map<String, String> vendorMap = new HashMap<>();
+        vendorMap.put("vendorName", Defaults.getDefaults("userName", getActivity()));
+        vendorMap.put("vendorEmail", FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        Product product = new Product(productTitle.getText().toString(), productPrice.getText().toString(), spinnerSelection != null ? spinnerSelection : "EGP", productDesc.getText().toString(), images, vendorMap, false,callbackSpinner);
         reference.child(productId).setValue(product).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -161,6 +239,9 @@ public class PostProductFragment extends Fragment {
             productDesc.setError("Provide your product description first!");
             productDesc.requestFocus();
             return false;
+        } else if (callbackSpinner.isEmpty()) {
+            Toast.makeText(getActivity(), "Please Select at least one bazaar", Toast.LENGTH_LONG).show();
+            return false;
         } else
             return true;
     }
@@ -180,7 +261,7 @@ public class PostProductFragment extends Fragment {
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         StorageMetadata metadata = taskSnapshot.getMetadata();
                         String name = metadata != null ? metadata.getName() : null;
-                        setImage(productReference,name,imageNo);
+                        setImage(productReference, name, imageNo);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -194,10 +275,10 @@ public class PostProductFragment extends Fragment {
     }
 
     private void setImage(StorageReference productReference, String name, String imageNo) {
-        if(name!=null){
+        if (name != null) {
             ImageView image = null;
             images.add(name);
-            switch (imageNo){
+            switch (imageNo) {
                 case "first":
                     addFirstImage.setVisibility(View.INVISIBLE);
                     addSecondImage.setVisibility(View.VISIBLE);

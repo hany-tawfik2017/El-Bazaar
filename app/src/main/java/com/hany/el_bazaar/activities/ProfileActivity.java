@@ -25,6 +25,8 @@ import com.hany.el_bazaar.R;
 import com.hany.el_bazaar.TabsFragments.ProfileTabsFragments.AboutTabFragment;
 import com.hany.el_bazaar.TabsFragments.ProfileTabsFragments.BazaarsProfileFragment;
 
+import java.io.Serializable;
+
 /**
  * Created by Hany on 12/8/2018.
  */
@@ -68,6 +70,7 @@ public class ProfileActivity extends AppCompatActivity {
                     userEmail.setText(user.email);
                     userName.setText(user.name);
                 }
+                setEditButtons();
             }
 
             @Override
@@ -83,18 +86,27 @@ public class ProfileActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+    }
+
+    private void setEditButtons() {
         final Intent intent = new Intent(ProfileActivity.this, EditProfileActivity.class);
+        intent.putExtra("userName", user.name);
+        intent.putExtra("userEmail", user.email);
+        intent.putExtra("userAddress", user.address);
+        intent.putExtra("userPass", user.password);
+        intent.putExtra("userMob", user.mobile);
+        if (user.aboutMap != null)
+            intent.putExtra("about", (Serializable) user.aboutMap);
+        if (user.brandName != null)
+            intent.putExtra("brandName", user.brandName);
         editUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 intent.putExtra("infoFlag", true);
-                intent.putExtra("userName", user.name);
-                intent.putExtra("userEmail", user.email);
-                intent.putExtra("userAddress", user.address);
-                intent.putExtra("userPass", user.password);
-                intent.putExtra("userMob", user.mobile);
                 startActivity(intent);
+                finish();
             }
         });
         editProfile.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +115,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 intent.putExtra("infoFlag", false);
                 startActivity(intent);
+                finish();
             }
         });
     }

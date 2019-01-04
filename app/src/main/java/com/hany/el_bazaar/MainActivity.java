@@ -23,7 +23,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hany.el_bazaar.Model.User;
 import com.hany.el_bazaar.NavigationFragments.HomeFragment;
@@ -191,7 +190,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, JoinActivity.class));
             }
         });
-        if (Defaults.getDefaults("userId", this) != null && auth.getCurrentUser() != null && Defaults.getDefaults("auth", this) != null)
+        if (Defaults.getDefaults("userId", this) != null && auth.getCurrentUser() != null &&
+                Defaults.getDefaults("auth", this) != null && Defaults.getDefaults("userType", this) != null)
             relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

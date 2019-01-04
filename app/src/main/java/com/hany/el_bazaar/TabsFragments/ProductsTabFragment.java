@@ -1,8 +1,10 @@
 package com.hany.el_bazaar.TabsFragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,8 +23,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hany.el_bazaar.Adapters.ProductsTabAdapter;
+import com.hany.el_bazaar.Defaults;
 import com.hany.el_bazaar.Model.Product;
 import com.hany.el_bazaar.R;
+import com.hany.el_bazaar.activities.PostProductActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +43,9 @@ public class ProductsTabFragment extends Fragment {
     ArrayList<Product> products;
     DatabaseReference reference;
     SpinKitView loading;
-    ImageView convertList,convertGrid;
+    ImageView convertList, convertGrid;
     ProductsTabAdapter adapter;
+    FloatingActionButton addProduct;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +62,19 @@ public class ProductsTabFragment extends Fragment {
         loading = view.findViewById(R.id.loading);
         convertList = view.findViewById(R.id.convert_list_img);
         convertGrid = view.findViewById(R.id.convert_grid_img);
+        addProduct = view.findViewById(R.id.add_product);
         products = new ArrayList<>();
+        if (Defaults.getDefaults("userType", getActivity()) != null && Defaults.getDefaults("userType", getActivity()).equals("Vendor"))
+            addProduct.setVisibility(View.VISIBLE);
+        addProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PostProductActivity.class);
+                intent.putExtra("isOrganizer", false);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
         loading.setVisibility(View.VISIBLE);
         setupDefaultProducts();
         adapter = new ProductsTabAdapter(getActivity(), products);
@@ -79,7 +96,7 @@ public class ProductsTabFragment extends Fragment {
                 convertList.setVisibility(View.VISIBLE);
                 convertGrid.setVisibility(View.INVISIBLE);
                 adapter.setList(false);
-                productsList.setLayoutManager(new GridLayoutManager(getActivity(),2));
+                productsList.setLayoutManager(new GridLayoutManager(getActivity(), 2));
                 productsList.setAdapter(adapter);
             }
         });
@@ -88,6 +105,25 @@ public class ProductsTabFragment extends Fragment {
 
     private void setupDefaultProducts() {
         reference = FirebaseDatabase.getInstance().getReference("products");
+//        if (Defaults.getDefaults("userType", getActivity()) != null && Defaults.getDefaults("userType", getActivity()).equals("Vendor")) {
+//            Query query = reference.orderByChild("vendor/vendorName").equalTo(Defaults.getDefaults("userName",getActivity()));
+//            query.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                    loading.setVisibility(View.GONE);
+//                    if (dataSnapshot.exists()) {
+//                        Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+//                        setProductArray(map);
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError databaseError) {
+//                    loading.setVisibility(View.GONE);
+//                    Toast.makeText(getActivity(), databaseError.getMessage(), Toast.LENGTH_LONG).show();
+//                }
+//            });
+//        } else
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -117,7 +153,12 @@ public class ProductsTabFragment extends Fragment {
                     product.setProductName((String) mapObj.get("productName"));
                     product.setProductPrice((String) mapObj.get("productPrice"));
                     product.setProductDesc((String) mapObj.get("productDesc"));
+                    product.setBazaars((List<Map<String, String>>) mapObj.get("bazaars"));
+                    product.setVendor((Map<String, String>) mapObj.get("vendor"));
                     product.setImages((List<String>) mapObj.get("images"));
+                    product.setFavoriteUsers((List<String>) mapObj.get("favoriteUsers"));
+                    if (mapObj.get("productRate") != null)
+                        product.setProductRate((Long) mapObj.get("productRate"));
                     products.add(product);
                 }
             }

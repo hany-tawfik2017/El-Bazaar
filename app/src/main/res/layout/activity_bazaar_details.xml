@@ -45,333 +45,302 @@
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPager"
-            android:layout_below="@id/action_bar"
             android:layout_width="match_parent"
             android:layout_height="227dp"
-            android:layout_marginBottom="8dp"/>
+            android:layout_below="@id/action_bar"
+            android:layout_marginBottom="8dp" />
 
         <LinearLayout
             android:id="@+id/slider_dots"
-            android:layout_below="@+id/viewPager"
-            android:orientation="horizontal"
-            android:gravity="center_vertical|center_horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/viewPager"
+            android:layout_marginBottom="7dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal" />
+
         <View
             android:id="@+id/separator"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            android:layout_below="@+id/slider_dots"/>
+            android:layout_below="@+id/slider_dots"
+            android:background="@android:color/darker_gray" />
+
         <ImageView
             android:id="@+id/organizer_image"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/organizer_icon"
-            android:layout_marginTop="14.9dp"
+            android:layout_below="@+id/separator"
             android:layout_marginStart="16dp"
-            android:layout_below="@+id/separator"/>
+            android:layout_marginTop="14.9dp"
+            android:src="@drawable/organizer_icon" />
+
         <TextView
             android:id="@+id/organizer_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:fontFamily="sans-serif"
-            android:textStyle="normal"
-            android:textColor="@color/black"
-            android:lineSpacingExtra="3sp"
             android:layout_below="@id/separator"
-            android:layout_toEndOf="@+id/organizer_image"
             android:layout_marginStart="17dp"
             android:layout_marginTop="26dp"
+            android:layout_toEndOf="@+id/organizer_image"
+            android:fontFamily="sans-serif"
+            android:lineSpacingExtra="3sp"
             android:text="Organizer name"
-            />
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="normal" />
+
         <View
             android:id="@+id/separator2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
             android:layout_below="@+id/organizer_image"
-            android:layout_marginTop="5.5dp"/>
+            android:layout_marginTop="5.5dp"
+            android:background="@android:color/darker_gray" />
+
         <TextView
             android:id="@+id/bazaar_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:fontFamily="sans-serif"
-            android:textStyle="normal"
-            android:layout_marginTop="14.5dp"
-            android:layout_marginStart="17dp"
-            android:layout_marginBottom="18dp"
-            android:textColor="@color/black"
             android:layout_below="@+id/separator2"
+            android:layout_marginBottom="18dp"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="14.5dp"
+            android:fontFamily="sans-serif"
             android:lineSpacingExtra="3sp"
             android:text="Bazaar Name"
-            />
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="normal" />
 
         <LinearLayout
             android:id="@+id/address_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_below="@+id/bazaar_name"
             android:layout_marginBottom="15.2dp"
-            >
+            android:orientation="horizontal">
+
             <ImageView
                 android:id="@+id/mark"
                 android:layout_width="13dp"
                 android:layout_height="16dp"
                 android:layout_marginStart="16.6dp"
                 android:layout_marginTop="4dp"
-                android:src="@drawable/map_mark"
-                />
+                android:src="@drawable/map_mark" />
+
             <TextView
                 android:id="@+id/bazaar_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="11.2dp"
+                android:fontFamily="sans-serif"
                 android:textColor="@color/warm_grey"
                 android:textSize="12sp"
-                android:layout_gravity="center_vertical"
-                android:fontFamily="sans-serif"
                 android:textStyle="normal"
-                tools:text="LONGCHAMP, City Star Mall"
-                tools:ignore="SmallSp" />
+                tools:ignore="SmallSp"
+                tools:text="LONGCHAMP, City Star Mall" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/vendors_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_below="@+id/address_layout"
             android:layout_marginBottom="15.2dp"
-            >
+            android:orientation="horizontal">
+
             <ImageView
                 android:id="@+id/vendor_icon"
                 android:layout_width="13dp"
                 android:layout_height="16dp"
                 android:layout_marginStart="16.6dp"
                 android:layout_marginTop="4dp"
-                android:src="@drawable/vendors_icon"
-                />
+                android:src="@drawable/vendors_icon" />
+
             <TextView
                 android:id="@+id/vendors_numbers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="11.2dp"
+                android:fontFamily="sans-serif"
                 android:textColor="@color/warm_grey"
                 android:textSize="12sp"
-                android:layout_gravity="center_vertical"
-                android:fontFamily="sans-serif"
                 android:textStyle="normal"
-                tools:text="2 Vendors"
-                tools:ignore="SmallSp" />
+                tools:ignore="SmallSp"
+                tools:text="2 Vendors" />
         </LinearLayout>
+
         <RatingBar
             android:id="@+id/bazaar_rate"
-            android:layout_width="wrap_content"
             style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:numStars="5"
-            android:stepSize="1"
-            android:layout_marginStart="8dp"
-            android:progressBackgroundTint="@color/gold"
-            android:backgroundTint="@color/gold"
-            android:layout_below="@+id/address_layout"
             android:layout_alignParentEnd="true"
+            android:layout_below="@+id/address_layout"
             android:layout_marginEnd="33.6dp"
-            />
+            android:layout_marginStart="8dp"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:progressBackgroundTint="@color/warm_grey"
+            android:progressTint="@color/gold"
+            android:secondaryProgressTint="@color/gold"
+            android:stepSize="1" />
 
         <View
             android:id="@+id/separator3"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
             android:layout_below="@+id/vendors_layout"
-            />
+            android:background="@android:color/darker_gray" />
+
         <TextView
             android:id="@+id/desc_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:fontFamily="sans-serif-medium"
-            android:textStyle="normal"
-            android:textColor="@color/black"
-            android:lineSpacingExtra="3sp"
-            android:layout_marginTop="12.5dp"
-            android:layout_marginStart="16dp"
             android:layout_below="@+id/separator3"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12.5dp"
+            android:fontFamily="sans-serif-medium"
+            android:lineSpacingExtra="3sp"
             android:text="@string/description"
-            />
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="normal" />
+
         <TextView
             android:id="@+id/desc_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
             android:layout_below="@id/desc_title"
             android:layout_marginStart="16dp"
             android:layout_marginTop="15dp"
             android:fontFamily="sans-serif"
-            android:textStyle="normal"
-            android:textColor="@color/black_87"
             android:lineSpacingExtra="6sp"
             android:text="@string/product_desc"
-            />
+            android:textColor="@color/black_87"
+            android:textSize="14sp"
+            android:textStyle="normal" />
         <!--<TextView-->
-            <!--android:id="@+id/read_more"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textSize="12sp"-->
-            <!--android:layout_marginStart="16dp"-->
-            <!--android:fontFamily="sans-serif"-->
-            <!--android:textStyle="normal"-->
-            <!--android:textColor="@color/bubblegum"-->
-            <!--android:layout_below="@+id/desc_text"-->
-            <!--android:lineSpacingExtra="2sp"-->
-            <!--android:text="@string/read_more"-->
-            <!--/>-->
+        <!--android:id="@+id/read_more"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textSize="12sp"-->
+        <!--android:layout_marginStart="16dp"-->
+        <!--android:fontFamily="sans-serif"-->
+        <!--android:textStyle="normal"-->
+        <!--android:textColor="@color/bubblegum"-->
+        <!--android:layout_below="@+id/desc_text"-->
+        <!--android:lineSpacingExtra="2sp"-->
+        <!--android:text="@string/read_more"-->
+        <!--/>-->
         <View
             android:id="@+id/separator4"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
             android:layout_below="@+id/desc_text"
             android:layout_marginTop="12.4dp"
-            />
+            android:background="@android:color/darker_gray" />
+
         <TextView
             android:id="@+id/vendor_contacts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:fontFamily="sans-serif-medium"
-            android:textStyle="normal"
-            android:textColor="@color/black"
-            android:lineSpacingExtra="3sp"
-            android:layout_marginTop="12.5dp"
-            android:layout_marginStart="16dp"
             android:layout_below="@+id/separator4"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12.5dp"
+            android:fontFamily="sans-serif-medium"
+            android:lineSpacingExtra="3sp"
             android:text="@string/organizer_contacts"
-            />
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="normal" />
+
         <ImageView
             android:id="@+id/facebook_contact"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_below="@+id/vendor_contacts"
+            android:layout_marginBottom="10dp"
             android:layout_marginStart="13dp"
             android:layout_marginTop="13dp"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/facebook"/>
+            android:src="@drawable/facebook" />
+
         <ImageView
             android:id="@+id/google_contact"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_below="@+id/vendor_contacts"
-            android:layout_toEndOf="@+id/facebook_contact"
-            android:layout_marginTop="13dp"
-            android:layout_marginStart="15dp"
             android:layout_marginBottom="10dp"
-            android:src="@drawable/google_plus_icon"/>
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="13dp"
+            android:layout_toEndOf="@+id/facebook_contact"
+            android:src="@drawable/google_plus_icon" />
+
         <ImageView
             android:id="@+id/instagram_contact"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_below="@+id/vendor_contacts"
-            android:layout_toEndOf="@+id/google_contact"
-            android:layout_marginTop="13dp"
-            android:layout_marginStart="15dp"
             android:layout_marginBottom="10dp"
-            android:src="@drawable/instagram"/>
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="13dp"
+            android:layout_toEndOf="@+id/google_contact"
+            android:src="@drawable/instagram" />
+
         <View
             android:id="@+id/separator5"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
             android:layout_below="@+id/facebook_contact"
             android:layout_marginTop="16.5dp"
-            />
+            android:background="@android:color/darker_gray" />
+
         <TextView
             android:id="@+id/organizers_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:fontFamily="sans-serif-medium"
-            android:textStyle="normal"
-            android:textColor="@color/black"
-            android:lineSpacingExtra="3sp"
-            android:text="@string/vendors"
             android:layout_below="@+id/separator5"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12.5dp"
-            />
-        <ImageView
-            android:id="@+id/brand_image"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_below="@id/organizers_title"
-            android:layout_marginTop="6.6dp"
-            android:layout_marginStart="16dp"
-            android:src="@drawable/brand_product"/>
-        <TextView
-            android:id="@+id/vendor_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/organizers_title"
-            android:layout_toEndOf="@id/brand_image"
-            android:textSize="15sp"
-            android:fontFamily="sans-serif"
-            android:textStyle="normal"
-            android:textColor="@color/black"
+            android:fontFamily="sans-serif-medium"
             android:lineSpacingExtra="3sp"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="18.6dp"
-            android:text="Vendor name"
-            />
-        <TextView
-            android:id="@+id/text_sep"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/organizers_title"
-            android:layout_toEndOf="@id/vendor_name"
-            android:textSize="15sp"
-            android:fontFamily="sans-serif"
-            android:textStyle="normal"
+            android:text="@string/vendors"
             android:textColor="@color/black"
-            android:lineSpacingExtra="3sp"
+            android:textSize="14sp"
+            android:textStyle="normal" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/vendors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/organizers_title"
+            android:layout_marginBottom="10dp"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="18.6dp"
-            android:text="-"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/organizers_title"
-            android:layout_toEndOf="@id/text_sep"
-            android:textSize="15sp"
-            android:fontFamily="sans-serif"
-            android:textStyle="normal"
-            android:textColor="@color/black"
-            android:lineSpacingExtra="3sp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="18.6dp"
-            android:text="Brand name"
-            />
+            android:layout_marginTop="11dp"
+            android:fadeScrollbars="false"
+            android:scrollbarAlwaysDrawHorizontalTrack="false"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="none"
+            android:transcriptMode="alwaysScroll" />
 
         <View
             android:id="@+id/separator6"
             android:layout_width="match_parent"
             android:layout_height="16dp"
-            android:background="#e0e0e0"
-            android:layout_below="@+id/brand_image"
+            android:layout_below="@+id/vendors"
             android:layout_marginTop="16.5dp"
-            />
+            android:background="#e0e0e0" />
+
         <RelativeLayout
             android:id="@+id/reviews_layout"
             android:layout_width="match_parent"
             android:layout_height="173.8dp"
             android:layout_below="@id/separator6"
             android:background="@color/service_back"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/reviews_title"
@@ -392,13 +361,14 @@
                 android:layout_height="match_parent"
                 android:layout_below="@+id/reviews_title"
                 android:layout_marginBottom="20.5dp"
-                android:layout_marginTop="11dp"
                 android:layout_marginStart="5dp"
+                android:layout_marginTop="11dp"
                 android:fadeScrollbars="false"
                 android:scrollbarAlwaysDrawHorizontalTrack="false"
                 android:scrollbarStyle="outsideOverlay"
                 android:scrollbars="none"
                 android:transcriptMode="alwaysScroll" />
+
             <com.github.ybq.android.spinkit.SpinKitView
                 android:id="@+id/loading"
                 style="@style/SpinKitView.DoubleBounce"
@@ -407,11 +377,13 @@
                 android:layout_centerInParent="true"
                 app:SpinKit_Color="@color/colorPrimary" />
         </RelativeLayout>
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="110.7dp"
             android:layout_below="@+id/reviews_layout"
             android:background="#e0e0e0">
+
             <RelativeLayout
                 android:layout_width="329dp"
                 android:layout_height="wrap_content"
@@ -438,14 +410,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/write_review"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
                     android:foregroundTint="@color/gold"
                     android:numStars="5"
+                    android:progressBackgroundTint="@color/warm_grey"
                     android:progressTint="@color/gold"
                     android:secondaryProgressTint="@color/gold"
-                    android:progressBackgroundTint="@color/warm_grey"
                     android:stepSize="1"
                     android:visibility="gone" />
 

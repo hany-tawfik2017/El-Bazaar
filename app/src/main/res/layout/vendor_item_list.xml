@@ -42,33 +42,7 @@
             android:textColor="#333333"
             android:text="Vendor Name"
             />
-        <TextView
-            android:id="@+id/dash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/vendor_name"
-            android:layout_marginStart="4dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="8dp"
-            android:textSize="14sp"
-            android:text="-"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif"
-            android:textColor="#333333"/>
-        <TextView
-            android:id="@+id/brand_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/dash"
-            android:layout_marginStart="10dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="8dp"
-            android:textSize="14sp"
-            android:textStyle="normal"
-            android:fontFamily="sans-serif"
-            android:textColor="#333333"
-            android:text="Brand Name"
-            />
+
         <RatingBar
             android:id="@+id/vendor_rate"
             android:layout_width="wrap_content"
@@ -76,47 +50,47 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/vendor_name"
             android:layout_alignStart="@id/vendor_name"
-            android:layout_marginTop="8dp"
-            android:numStars="5"
-            android:stepSize="1"
-            android:indeterminateTint="@color/gold"
-            android:progressBackgroundTint="@color/gold"
-            android:backgroundTint="@color/gold"
+            android:layout_marginTop="15dp"
             android:foregroundTint="@color/gold"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:progressBackgroundTint="@color/warm_grey"
             android:progressTint="@color/gold"
+            android:secondaryProgressTint="@color/gold"
+            android:stepSize="1"
             />
-        <ImageView
-            android:id="@+id/mark"
-            android:layout_width="13dp"
-            android:layout_height="20dp"
-            android:layout_below="@id/vendor_rate"
-            android:layout_alignStart="@id/vendor_rate"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/map_mark"
-            />
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/mark"
-            android:layout_below="@id/vendor_rate"
-            android:layout_marginStart="7dp"
-            android:layout_marginTop="3dp"
-            android:textSize="11.5sp"
-            android:textStyle="bold"
-            android:textColor="#333333"
-            android:text="LONGCHAMP"
-            />
-        <TextView
-            android:id="@+id/mall_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/name"
-            android:layout_alignStart="@+id/name"
-            android:textSize="11.2sp"
-            android:textColor="@color/warm_grey"
-            android:text="City Stars Mall"
-            />
+        <!--<ImageView-->
+            <!--android:id="@+id/mark"-->
+            <!--android:layout_width="13dp"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:layout_below="@id/vendor_rate"-->
+            <!--android:layout_alignStart="@id/vendor_rate"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:src="@drawable/map_mark"-->
+            <!--/>-->
+        <!--<TextView-->
+            <!--android:id="@+id/name"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_toEndOf="@id/mark"-->
+            <!--android:layout_below="@id/vendor_rate"-->
+            <!--android:layout_marginStart="7dp"-->
+            <!--android:layout_marginTop="3dp"-->
+            <!--android:textSize="11.5sp"-->
+            <!--android:textStyle="bold"-->
+            <!--android:textColor="#333333"-->
+            <!--android:text="LONGCHAMP"-->
+            <!--/>-->
+        <!--<TextView-->
+            <!--android:id="@+id/mall_address"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/name"-->
+            <!--android:layout_alignStart="@+id/name"-->
+            <!--android:textSize="11.2sp"-->
+            <!--android:textColor="@color/warm_grey"-->
+            <!--android:text="City Stars Mall"-->
+            <!--/>-->
 
 
     </RelativeLayout>

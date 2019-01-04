@@ -59,6 +59,8 @@
         <activity android:name=".activities.BazaarDetailsActivity" />
         <activity android:name=".activities.PostProductActivity" />
         <activity android:name=".activities.FavoritesActivity" />
+        <activity android:name=".activities.OrganizerInfoActivity" />
+        <activity android:name=".activities.VendorInfoActivity" />
 
     </application>
 

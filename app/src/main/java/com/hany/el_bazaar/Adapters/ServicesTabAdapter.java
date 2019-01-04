@@ -41,7 +41,11 @@ public class ServicesTabAdapter extends RecyclerView.Adapter<ServicesTabAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.checkService.setChecked(true);
+                if (holder.checkService.isChecked()) {
+                    holder.checkService.setChecked(false);
+                } else {
+                    holder.checkService.setChecked(true);
+                }
             }
         });
     }

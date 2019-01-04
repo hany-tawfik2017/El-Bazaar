@@ -1,16 +1,20 @@
 package com.hany.el_bazaar.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.hany.el_bazaar.R;
+import com.hany.el_bazaar.SpinnerCallback;
 
 import java.util.ArrayList;
 
@@ -23,10 +27,12 @@ public class PostItemAdapter extends RecyclerView.Adapter<PostItemAdapter.ViewHo
     Context context;
     ArrayList<Object> listItems;
     ArrayList<String> spinnerItems;
+    SpinnerCallback callback;
 
-    public PostItemAdapter(Context context, ArrayList<Object> listItems) {
+    public PostItemAdapter(Context context, ArrayList<Object> listItems,SpinnerCallback callback) {
         this.context = context;
         this.listItems = listItems;
+        this.callback = callback;
     }
 
     @NonNull
@@ -43,6 +49,20 @@ public class PostItemAdapter extends RecyclerView.Adapter<PostItemAdapter.ViewHo
             public void onClick(View v) {
                 listItems.remove(position);
                 notifyItemRemoved(position);
+            }
+        });
+        holder.bazaarVendorSelection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
+                ((TextView) parent.getChildAt(0)).setTextSize(11);
+                callback.callback(parent.getItemAtPosition(position).toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                ((TextView)parent.getChildAt(0)).setTextColor(Color.BLACK);
+                ((TextView) parent.getChildAt(0)).setTextSize(11);
             }
         });
 
@@ -75,6 +95,7 @@ public class PostItemAdapter extends RecyclerView.Adapter<PostItemAdapter.ViewHo
                 ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, spinnerItems);
                 spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 bazaarVendorSelection.setAdapter(spinnerAdapter);
+
             }
         }
     }

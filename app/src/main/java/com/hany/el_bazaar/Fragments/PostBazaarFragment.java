@@ -42,11 +42,12 @@ import com.hany.el_bazaar.Defaults;
 import com.hany.el_bazaar.GlideApp;
 import com.hany.el_bazaar.MainActivity;
 import com.hany.el_bazaar.Model.Bazaar;
-import com.hany.el_bazaar.Model.User;
 import com.hany.el_bazaar.R;
+import com.hany.el_bazaar.SpinnerCallback;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,21 +63,22 @@ public class PostBazaarFragment extends Fragment {
     final FirebaseStorage storage = FirebaseStorage.getInstance();
     ImageView firstImage, secondImage, thirdImage;
     Button postSave, addFirstImage, addSecondImage, addThirdImage;
-    EditText bazaarName,bazaarLocation,bazaarDesc;
+    EditText bazaarName, bazaarLocation, bazaarDesc;
     Spinner capacitySpinner;
     String spinnerSelection;
     ArrayList<Object> users;
     RecyclerView bazaarsVendorsList;
     PostItemAdapter adapter;
-    TextView imagesTitle,addVendor;
+    TextView imagesTitle, addVendor;
     StorageReference reference;
     String imageNo;
     List<String> images = new ArrayList<>();
+    ArrayList<Map<String, String>> callbackspinner;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_post_bazaar,container,false);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_post_bazaar, container, false);
 
         postSave = view.findViewById(R.id.post_button);
         capacitySpinner = view.findViewById(R.id.capacity_spinner);
@@ -93,8 +95,7 @@ public class PostBazaarFragment extends Fragment {
         addVendor = view.findViewById(R.id.add_bazaar_vendor);
         bazaarsVendorsList.setLayoutManager(new LinearLayoutManager(getActivity()));
         users = new ArrayList<>();
-        adapter = new PostItemAdapter(getActivity(),users);
-        bazaarsVendorsList.setAdapter(adapter);
+        callbackspinner = new ArrayList<>();
         setVendorList();
         reference = storage.getReference();
         addFirstImage.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +130,7 @@ public class PostBazaarFragment extends Fragment {
             public void onClick(View v) {
                 final Animation alphaAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.button_alpha_anim);
                 v.startAnimation(alphaAnimation);
-                if(checkBazaarFields())
+                if (checkBazaarFields())
                     postBazaar();
 
             }
@@ -159,16 +160,39 @@ public class PostBazaarFragment extends Fragment {
         });
     }
 
-    private void setVendors(Map<String, Object> map) {
-        if(map!=null){
-            ArrayList<String> spinnerList= new ArrayList<>();
+    private void setVendors(final Map<String, Object> map) {
+        if (map != null) {
+            final ArrayList<Map<String, String>> vendors = new ArrayList<>();
+            final ArrayList<String> spinnerList = new ArrayList<>();
             for (Map.Entry<String, Object> entry : map.entrySet()) {
-                   if(entry.getValue() instanceof Map){
-                        spinnerList.add((String) ((Map) entry.getValue()).get("name"));
-                        users.add((String) ((Map) entry.getValue()).get("name"));
-                   }
+                if (entry.getValue() instanceof Map) {
+                    spinnerList.add((String) ((Map) entry.getValue()).get("name"));
+                    users.add((String) ((Map) entry.getValue()).get("name"));
+                    vendors.add((Map<String, String>) entry.getValue());
+                }
             }
-
+            SpinnerCallback callback = new SpinnerCallback() {
+                @Override
+                public void callback(String itemSelected) {
+                    Map<String, String> vendorMap = new HashMap<>();
+                    vendorMap.put("vendorName", itemSelected);
+                    for (Map<String, String> map1 : vendors) {
+                        if (map1.get("name").equals(itemSelected)) {
+                            if (map1.get("brandName") != null)
+                                vendorMap.put("brandName", map1.get("brandName"));
+                            break;
+                        }
+                    }
+                    boolean flag = false;
+                    for (Map<String, String> map1 : callbackspinner) {
+                        if (map1.get("bazaarName").equals(vendorMap.get("bazaarName")))
+                            flag = true;
+                    }
+                    if (!flag)
+                    callbackspinner.add(vendorMap);
+                }
+            };
+            adapter = new PostItemAdapter(getActivity(), users,callback);
             adapter.setSpinnerItems(spinnerList);
             bazaarsVendorsList.setAdapter(adapter);
         }
@@ -178,7 +202,7 @@ public class PostBazaarFragment extends Fragment {
         DatabaseReference reference = databse.getReference("bazaars");
         String bazaarId = reference.push().getKey();
         spinnerSelection = (String) capacitySpinner.getSelectedItem();
-        Bazaar bazaar = new Bazaar(bazaarName.getText().toString(), Defaults.getDefaults("userName",getActivity()), bazaarLocation.getText().toString(),bazaarDesc.getText().toString(),spinnerSelection != null ? spinnerSelection : "4 Vendors", images);
+        Bazaar bazaar = new Bazaar(bazaarName.getText().toString(), Defaults.getDefaults("userName", getActivity()), bazaarLocation.getText().toString(), bazaarDesc.getText().toString(), spinnerSelection != null ? spinnerSelection : "4 Vendors", images, callbackspinner);
         reference.child(bazaarId).setValue(bazaar).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -207,6 +231,9 @@ public class PostBazaarFragment extends Fragment {
             bazaarDesc.setError("Provide your bazaar description first!");
             bazaarDesc.requestFocus();
             return false;
+        } else if (callbackspinner.isEmpty()) {
+            Toast.makeText(getActivity(), "Please Select at least one vendor", Toast.LENGTH_LONG).show();
+            return false;
         } else
             return true;
     }
@@ -214,7 +241,7 @@ public class PostBazaarFragment extends Fragment {
     private void startResults(String imageNumber) {
         Intent intent = new Intent();
         intent.setType("*/*");
-        intent.putExtra("imageNo",imageNumber);
+        intent.putExtra("imageNo", imageNumber);
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select File"), 152);
     }
@@ -234,7 +261,7 @@ public class PostBazaarFragment extends Fragment {
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         StorageMetadata metadata = taskSnapshot.getMetadata();
                         String name = metadata != null ? metadata.getName() : null;
-                        setImage(productReference,name,imageNo);
+                        setImage(productReference, name, imageNo);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -248,10 +275,10 @@ public class PostBazaarFragment extends Fragment {
     }
 
     private void setImage(StorageReference productReference, String name, String imageNo) {
-        if(name!=null){
+        if (name != null) {
             ImageView image = null;
             images.add(name);
-            switch (imageNo){
+            switch (imageNo) {
                 case "first":
                     addFirstImage.setVisibility(View.INVISIBLE);
                     addSecondImage.setVisibility(View.VISIBLE);

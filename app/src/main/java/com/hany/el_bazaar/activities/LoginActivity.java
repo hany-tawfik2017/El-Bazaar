@@ -197,11 +197,17 @@ public class LoginActivity extends AppCompatActivity {
                         Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
                         for (Map.Entry<String, Object> entry : map.entrySet()) {
                             Defaults.setDefaults("userId", entry.getKey(), LoginActivity.this);
-                            if (entry.getValue() instanceof Map)
+                            if (entry.getValue() instanceof Map) {
                                 Defaults.setDefaults("userName", (String) ((Map) entry.getValue()).get("name"), LoginActivity.this);
+                                Defaults.setDefaults("userType", (String) ((Map) entry.getValue()).get("userType"), LoginActivity.this);
+                            }
+
                         }
                         Defaults.setDefaults("auth", "verified", LoginActivity.this);
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
                         finish();
                     }
                 }
@@ -214,7 +220,10 @@ public class LoginActivity extends AppCompatActivity {
             });
         } else {
             Defaults.setDefaults("auth", "verified", LoginActivity.this);
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
             finish();
         }
 

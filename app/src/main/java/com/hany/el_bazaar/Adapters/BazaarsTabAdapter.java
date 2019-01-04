@@ -30,6 +30,7 @@ public class BazaarsTabAdapter extends RecyclerView.Adapter<BazaarsTabAdapter.Vi
     ArrayList<Bazaar> bazaars;
     private boolean isProfileBazaar;
     StorageReference storageReference;
+    public boolean notClicked;
 
     public BazaarsTabAdapter(Context context, ArrayList<Bazaar> bazaars) {
         this.context = context;
@@ -60,11 +61,14 @@ public class BazaarsTabAdapter extends RecyclerView.Adapter<BazaarsTabAdapter.Vi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(notClicked)
+                    return;
                 Intent intent = new Intent(context, BazaarDetailsActivity.class);
                 intent.putExtra("vendorsNumbers", bazaars.get(position).getVendorNumbers());
                 intent.putExtra("organizerName", bazaars.get(position).getOrganizerName());
                 intent.putExtra("bazaarName", bazaars.get(position).getBazaarName());
                 intent.putExtra("bazaarDesc",bazaars.get(position).getBazaarDesc());
+                intent.putExtra("bazaarId",bazaars.get(position).getBazaarId());
                 intent.putExtra("bazaarPlace", bazaars.get(position).getBazaarPlace());
                 intent.putExtra("bazaarImages", (Serializable) bazaars.get(position).getImages());
                 context.startActivity(intent);

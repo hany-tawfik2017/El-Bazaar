@@ -85,5 +85,6 @@
         android:layout_margin="15dp"
         android:src="@drawable/ic_plus"
         app:fabSize="normal"
+        android:visibility="gone"
         />
 </android.support.design.widget.CoordinatorLayout>
