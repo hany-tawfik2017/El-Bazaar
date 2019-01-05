@@ -52,6 +52,17 @@
                 android:layout_gravity="center"
                 android:background="@drawable/plus"
                 />
+            <ProgressBar
+                android:id="@+id/loading_bar"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="39.2dp"
+                android:layout_height="39.2dp"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/colorPrimary"
+                android:indeterminate="true"
+                android:progressDrawable="@drawable/circular_progress_bar"
+                android:visibility="gone"
+                />
         </FrameLayout>
         <FrameLayout
             android:id="@+id/second_images_layout"
@@ -74,6 +85,17 @@
                 android:layout_gravity="center"
                 android:background="@drawable/plus"
                 android:visibility="invisible"
+                />
+            <ProgressBar
+                android:id="@+id/loading_bar2"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="39.2dp"
+                android:layout_height="39.2dp"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/colorPrimary"
+                android:indeterminate="true"
+                android:progressDrawable="@drawable/circular_progress_bar"
+                android:visibility="gone"
                 />
         </FrameLayout>
 
@@ -99,6 +121,17 @@
                 android:layout_gravity="center"
                 android:background="@drawable/plus"
                 android:visibility="invisible"/>
+            <ProgressBar
+                android:id="@+id/loading_bar3"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="39.2dp"
+                android:layout_height="39.2dp"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/colorPrimary"
+                android:indeterminate="true"
+                android:progressDrawable="@drawable/circular_progress_bar"
+                android:visibility="gone"
+                />
         </FrameLayout>
 
         <ImageView

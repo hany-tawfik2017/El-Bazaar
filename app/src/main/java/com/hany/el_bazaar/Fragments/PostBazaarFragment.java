@@ -21,6 +21,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -74,6 +75,7 @@ public class PostBazaarFragment extends Fragment {
     String imageNo;
     List<String> images = new ArrayList<>();
     ArrayList<Map<String, String>> callbackspinner;
+    ProgressBar loadingBar1,loadingBar2,loadingBar3;
 
     @Nullable
     @Override
@@ -93,6 +95,9 @@ public class PostBazaarFragment extends Fragment {
         bazaarDesc = view.findViewById(R.id.post_desc);
         bazaarsVendorsList = view.findViewById(R.id.bazaars_vendors);
         addVendor = view.findViewById(R.id.add_bazaar_vendor);
+        loadingBar1 = view.findViewById(R.id.loading_bar);
+        loadingBar2 = view.findViewById(R.id.loading_bar2);
+        loadingBar3 = view.findViewById(R.id.loading_bar3);
         bazaarsVendorsList.setLayoutManager(new LinearLayoutManager(getActivity()));
         users = new ArrayList<>();
         callbackspinner = new ArrayList<>();
@@ -252,6 +257,20 @@ public class PostBazaarFragment extends Fragment {
         if (resultCode != getActivity().RESULT_CANCELED && resultCode == Activity.RESULT_OK) {
             Uri uri = data.getData();
             if (uri != null) {
+                switch (imageNo){
+                    case "first":
+                        addFirstImage.setVisibility(View.INVISIBLE);
+                        loadingBar1.setVisibility(View.VISIBLE);
+                        break;
+                    case "second":
+                        addSecondImage.setVisibility(View.INVISIBLE);
+                        loadingBar2.setVisibility(View.VISIBLE);
+                        break;
+                    case "third":
+                        addThirdImage.setVisibility(View.INVISIBLE);
+                        loadingBar3.setVisibility(View.VISIBLE);
+                        break;
+                }
                 String filePath = Commons.getPath(uri, getActivity());
                 File file = new File(filePath);
                 final StorageReference productReference = reference.child("bazaar/" + file.getName());
@@ -280,17 +299,17 @@ public class PostBazaarFragment extends Fragment {
             images.add(name);
             switch (imageNo) {
                 case "first":
-                    addFirstImage.setVisibility(View.INVISIBLE);
+                    loadingBar1.setVisibility(View.GONE);
                     addSecondImage.setVisibility(View.VISIBLE);
                     image = firstImage;
                     break;
                 case "second":
-                    addSecondImage.setVisibility(View.INVISIBLE);
+                    loadingBar2.setVisibility(View.GONE);
                     addThirdImage.setVisibility(View.VISIBLE);
                     image = secondImage;
                     break;
                 case "third":
-                    addThirdImage.setVisibility(View.INVISIBLE);
+                    loadingBar3.setVisibility(View.GONE);
                     image = thirdImage;
                     break;
             }
